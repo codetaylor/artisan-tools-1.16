@@ -37,6 +37,7 @@ public class ArtisanToolsModConfig {
 
   public static class Config {
 
+    public final ForgeConfigSpec.ConfigValue<String> creativeTabItem;
     public final ForgeConfigSpec.BooleanValue enableToolEnchanting;
     public final ForgeConfigSpec.BooleanValue enableToolRepair;
     public final ForgeConfigSpec.BooleanValue enableDurabilityTooltip;
@@ -46,6 +47,13 @@ public class ArtisanToolsModConfig {
     public final ForgeConfigSpec.BooleanValue enableCompression;
 
     public Config(ForgeConfigSpec.Builder builder) {
+
+      this.creativeTabItem = builder
+          .comment(
+              "This item will be used as the creative tab icon.",
+              "Default: " + "artisantools:cutters_iron"
+          )
+          .define("creativeTabItem", "artisantools:cutters_iron");
 
       this.enableToolEnchanting = builder
           .comment(
