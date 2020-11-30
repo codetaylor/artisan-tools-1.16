@@ -42,6 +42,7 @@ public class ArtisanToolsModConfig {
     public final ForgeConfigSpec.BooleanValue enableDurabilityTooltip;
     public final ForgeConfigSpec.ConfigValue<List<? extends String>> allowedEnchants;
     public final ForgeConfigSpec.ConfigValue<List<? extends String>> enabledToolTypes;
+    public final ForgeConfigSpec.BooleanValue disableGeneration;
     public final ForgeConfigSpec.BooleanValue enableCompression;
 
     public Config(ForgeConfigSpec.Builder builder) {
@@ -92,10 +93,20 @@ public class ArtisanToolsModConfig {
               o -> true
           );
 
+      this.disableGeneration = builder
+          .comment(
+              "This mod will regenerate content on each game load.",
+              "Set to true to stop content generation on each game load.",
+              "This is something that you will probably want to set to true before distributing your mod pack.",
+              "Default: " + false
+          )
+          .define("disableGeneration", false);
+
       this.enableCompression = builder
           .comment(
               "Set to true to compress the generated resource and data packs.",
               "This will compress the packs and remove the folders.",
+              "This is something that you will probably want to set to true before distributing your mod pack.",
               "Default: " + false
           )
           .define("enableCompression", false);

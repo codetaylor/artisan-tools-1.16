@@ -71,11 +71,13 @@ public class ArtisanToolsMod {
     ConfigFilePathSupplier customMaterialPathSupplier = new ConfigFilePathSupplier(configPath, TOOL_MATERIALS_CUSTOM_JSON);
 
     List<? extends String> allowedToolTypes = ArtisanToolsModConfig.CONFIG.enabledToolTypes.get();
+    boolean disableGeneration = ArtisanToolsModConfig.CONFIG.disableGeneration.get();
     boolean enableCompression = ArtisanToolsModConfig.CONFIG.enableCompression.get();
 
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
     GenerationInhibitor generationInhibitor = new GenerationInhibitor(
+        disableGeneration,
         materialList,
         allowedToolTypes
     );
