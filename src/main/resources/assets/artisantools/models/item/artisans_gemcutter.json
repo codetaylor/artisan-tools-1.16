@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "artisantools:items/artisans_gemcutter_base",
+    "layer1": "artisantools:items/artisans_gemcutter_color"
+  }
+}
