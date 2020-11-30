@@ -42,6 +42,7 @@ public class ArtisanToolsModConfig {
     public final ForgeConfigSpec.BooleanValue enableDurabilityTooltip;
     public final ForgeConfigSpec.ConfigValue<List<? extends String>> allowedEnchants;
     public final ForgeConfigSpec.ConfigValue<List<? extends String>> enabledToolTypes;
+    public final ForgeConfigSpec.BooleanValue enableCompression;
 
     public Config(ForgeConfigSpec.Builder builder) {
 
@@ -90,6 +91,15 @@ public class ArtisanToolsModConfig {
                   .collect(Collectors.toList()),
               o -> true
           );
+
+      this.enableCompression = builder
+          .comment(
+              "Set to true to compress the generated resource and data packs.",
+              "This will compress the packs and remove the folders.",
+              "Default: " + false
+          )
+          .define("enableCompression", false);
+
     }
 
     public boolean allowToolEnchantment(Enchantment enchantment) {
@@ -101,7 +111,7 @@ public class ArtisanToolsModConfig {
       }
 
       String resourceLocationString = resourceLocation.toString();
-      return Arrays.asList(this.allowedEnchants.get()).contains(resourceLocationString);
+      return this.allowedEnchants.get().contains(resourceLocationString);
     }
   }
 }

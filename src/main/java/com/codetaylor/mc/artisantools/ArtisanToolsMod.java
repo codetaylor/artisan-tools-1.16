@@ -6,10 +6,7 @@ import com.codetaylor.mc.artisantools.api.tool.ItemWorktableToolBase;
 import com.codetaylor.mc.artisantools.event.ConstructModEventHandler;
 import com.codetaylor.mc.artisantools.event.ItemColorEventHandler;
 import com.codetaylor.mc.artisantools.event.ItemRegistrationEventHandler;
-import com.codetaylor.mc.artisantools.lib.EnabledToolTypePredicate;
-import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
-import com.codetaylor.mc.artisantools.lib.PathCreator;
-import com.codetaylor.mc.artisantools.lib.PathRemover;
+import com.codetaylor.mc.artisantools.lib.*;
 import com.codetaylor.mc.artisantools.material.*;
 import com.codetaylor.mc.artisantools.pack.*;
 import com.codetaylor.mc.artisantools.pack.injector.DataPackFinderInjector;
@@ -33,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 @Mod(ArtisanToolsMod.MOD_ID)
 public class ArtisanToolsMod {
@@ -44,9 +42,13 @@ public class ArtisanToolsMod {
   public static final Path MOD_CONFIG_PATH = CONFIG_PATH.resolve(MOD_ID);
   public static final Path GENERATED_PATH = MOD_CONFIG_PATH.resolve("generated");
   public static final Path GENERATED_RESOURCE_PACK_PATH = GENERATED_PATH.resolve("resourcepack");
+  public static final Path GENERATED_RESOURCE_PACK_ZIPPED_PATH = GENERATED_PATH.resolve("resourcepack.zip");
   public static final Path GENERATED_RESOURCE_PACK_MODEL_PATH = GENERATED_RESOURCE_PACK_PATH.resolve("assets/artisantools/models/item");
   public static final Path GENERATED_DATA_PACK_PATH = GENERATED_PATH.resolve("datapack");
+  public static final Path GENERATED_DATA_PACK_ZIPPED_PATH = GENERATED_PATH.resolve("datapack.zip");
   public static final Path GENERATED_DATA_PACK_RECIPE_PATH = GENERATED_DATA_PACK_PATH.resolve("data/artisantools/recipes");
+
+  public static final BooleanSupplier ENABLE_COMPRESSION = () -> ArtisanToolsModConfig.CONFIG.enableCompression.get();
 
   private static final String TOOL_MATERIALS_CUSTOM_JSON = "tool.materials.custom.json";
   private static final String TOOL_MATERIALS_GENERATED_JSON = "tool.materials.generated.json";
@@ -62,6 +64,7 @@ public class ArtisanToolsMod {
 
     ModLoadingContext modLoadingContext = ModLoadingContext.get();
     modLoadingContext.registerConfig(ModConfig.Type.COMMON, ArtisanToolsModConfig.CONFIG_SPEC, MOD_ID + "/artisantools.toml");
+    ArtisanToolsModConfig.loadConfig(ArtisanToolsModConfig.CONFIG_SPEC, MOD_CONFIG_PATH.resolve("artisantools.toml"));
 
     List<CustomMaterial> materialList = new ArrayList<>();
     List<CustomToolMaterialRegistrationEntry> customMaterialList = new ArrayList<>();
@@ -69,6 +72,7 @@ public class ArtisanToolsMod {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     Path configPath = FMLPaths.CONFIGDIR.get().resolve(MOD_ID);
     ConfigFilePathSupplier customMaterialPathSupplier = new ConfigFilePathSupplier(configPath, TOOL_MATERIALS_CUSTOM_JSON);
+
     List<? extends String> allowedToolTypes = ArtisanToolsModConfig.CONFIG.enabledToolTypes.get();
 
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -127,7 +131,17 @@ public class ArtisanToolsMod {
                 enabledToolTypePredicate,
                 LOGGER
             ),
-            generationInhibitor
+            generationInhibitor,
+            ENABLE_COMPRESSION,
+            new FolderCompressor(
+                GENERATED_RESOURCE_PACK_PATH,
+                GENERATED_RESOURCE_PACK_ZIPPED_PATH,
+                LOGGER
+            ),
+            new PathRemover(
+                GENERATED_RESOURCE_PACK_PATH,
+                LOGGER
+            )
         ),
         new DataPackGenerator(
             new PathCreator(
@@ -148,7 +162,17 @@ public class ArtisanToolsMod {
                 enabledToolTypePredicate,
                 LOGGER
             ),
-            generationInhibitor
+            generationInhibitor,
+            ENABLE_COMPRESSION,
+            new FolderCompressor(
+                GENERATED_DATA_PACK_PATH,
+                GENERATED_DATA_PACK_ZIPPED_PATH,
+                LOGGER
+            ),
+            new PathRemover(
+                GENERATED_DATA_PACK_PATH,
+                LOGGER
+            )
         )
     ));
 

@@ -1,11 +1,11 @@
 package com.codetaylor.mc.artisantools.event;
 
 import com.codetaylor.mc.artisantools.ArtisanToolsMod;
-import com.codetaylor.mc.artisantools.lib.EnabledToolTypePredicate;
-import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
 import com.codetaylor.mc.artisantools.api.tool.*;
 import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
 import com.codetaylor.mc.artisantools.item.ItemWorktableTool;
+import com.codetaylor.mc.artisantools.lib.EnabledToolTypePredicate;
+import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
 import com.codetaylor.mc.artisantools.material.CustomMaterialConverter;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
