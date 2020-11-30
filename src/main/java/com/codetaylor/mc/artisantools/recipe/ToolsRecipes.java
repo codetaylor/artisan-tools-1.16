@@ -1,25 +1,15 @@
 package com.codetaylor.mc.artisantools.recipe;
 
 import com.codetaylor.mc.artisantools.api.tool.ItemWorktableToolBase;
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
+import com.codetaylor.mc.artisantools.api.tool.reference.EnumToolType;
 import com.codetaylor.mc.artisantools.lib.MalformedRecipeItemException;
 import com.codetaylor.mc.artisantools.lib.ParseResult;
 import com.codetaylor.mc.artisantools.lib.RecipeItemParser;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonSyntaxException;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ITagCollection;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,7 +21,7 @@ public class ToolsRecipes {
   /**
    * Contains the recipe definitions for each tool type.
    */
-  private static final EnumMap<EnumWorktableToolType, Object[]> RECIPE_MAP;
+  private static final EnumMap<EnumToolType, Object[]> RECIPE_MAP;
 
   /**
    * The alias used for ingredient substitution. This is replaced before a recipe is registered.
@@ -39,10 +29,10 @@ public class ToolsRecipes {
   private static final String MATERIAL_ALIAS = "#material_alias";
 
   static {
-    RECIPE_MAP = new EnumMap<>(EnumWorktableToolType.class);
+    RECIPE_MAP = new EnumMap<>(EnumToolType.class);
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.BLACKSMITHS_CUTTERS,
+        EnumToolType.BLACKSMITHS_CUTTERS,
         new Object[]{
             ". .",
             " x ",
@@ -54,7 +44,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.BLACKSMITHS_HAMMER,
+        EnumToolType.BLACKSMITHS_HAMMER,
         new Object[]{
             " .x",
             " s.",
@@ -66,7 +56,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.CARPENTERS_HAMMER,
+        EnumToolType.CARPENTERS_HAMMER,
         new Object[]{
             " ..",
             " sx",
@@ -78,7 +68,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.CARPENTERS_HANDSAW,
+        EnumToolType.CARPENTERS_HANDSAW,
         new Object[]{
             " .s",
             ".s ",
@@ -89,7 +79,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.JEWELERS_GEMCUTTER,
+        EnumToolType.JEWELERS_GEMCUTTER,
         new Object[]{
             "  x",
             " ..",
@@ -101,7 +91,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.JEWELERS_PLIERS,
+        EnumToolType.JEWELERS_PLIERS,
         new Object[]{
             ". .",
             "sxs",
@@ -113,7 +103,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.MASONS_CHISEL,
+        EnumToolType.MASONS_CHISEL,
         new Object[]{
             "  .",
             " . ",
@@ -124,7 +114,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.MASONS_TROWEL,
+        EnumToolType.MASONS_TROWEL,
         new Object[]{
             "  .",
             " s.",
@@ -135,7 +125,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.TAILORS_NEEDLE,
+        EnumToolType.TAILORS_NEEDLE,
         new Object[]{
             "  .",
             " .x",
@@ -147,7 +137,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.TAILORS_SHEARS,
+        EnumToolType.TAILORS_SHEARS,
         new Object[]{
             " . ",
             "sx.",
@@ -159,7 +149,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.ENGINEERS_DRIVER,
+        EnumToolType.ENGINEERS_DRIVER,
         new Object[]{
             "  .",
             " . ",
@@ -171,7 +161,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.ENGINEERS_SPANNER,
+        EnumToolType.ENGINEERS_SPANNER,
         new Object[]{
             " . ",
             " s.",
@@ -182,7 +172,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.MAGES_ATHAME,
+        EnumToolType.MAGES_ATHAME,
         new Object[]{
             "  .",
             "x. ",
@@ -195,7 +185,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.MAGES_GRIMOIRE,
+        EnumToolType.MAGES_GRIMOIRE,
         new Object[]{
             " . ",
             "xbx",
@@ -207,7 +197,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.SCRIBES_COMPASS,
+        EnumToolType.SCRIBES_COMPASS,
         new Object[]{
             " s ",
             "sxs",
@@ -219,7 +209,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.SCRIBES_QUILL,
+        EnumToolType.SCRIBES_QUILL,
         new Object[]{
             "  f",
             " .x",
@@ -231,7 +221,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.CHEMISTS_BURNER,
+        EnumToolType.CHEMISTS_BURNER,
         new Object[]{
             " . ",
             " . ",
@@ -242,7 +232,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.CHEMISTS_BEAKER,
+        EnumToolType.CHEMISTS_BEAKER,
         new Object[]{
             ".g.",
             " g ",
@@ -252,7 +242,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.FARMERS_LENS,
+        EnumToolType.FARMERS_LENS,
         new Object[]{
             "   ",
             ".g.",
@@ -264,7 +254,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.FARMERS_SIFTER,
+        EnumToolType.FARMERS_SIFTER,
         new Object[]{
             "s.s",
             "sxs",
@@ -276,7 +266,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.CHEFS_CUTTING_BOARD,
+        EnumToolType.CHEFS_CUTTING_BOARD,
         new Object[]{
             "  s",
             " . ",
@@ -288,7 +278,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.CHEFS_PAN,
+        EnumToolType.CHEFS_PAN,
         new Object[]{
             "s  ",
             "c..",
@@ -299,7 +289,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.UNIVERSAL_MORTAR,
+        EnumToolType.UNIVERSAL_MORTAR,
         new Object[]{
             "  s",
             ".f ",
@@ -311,7 +301,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.UNIVERSAL_KNIFE,
+        EnumToolType.UNIVERSAL_KNIFE,
         new Object[]{
             "  .",
             "x. ",
@@ -323,7 +313,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.TANNERS_PUNCH,
+        EnumToolType.TANNERS_PUNCH,
         new Object[]{
             "  .",
             " sx",
@@ -335,7 +325,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.TANNERS_GROOVER,
+        EnumToolType.TANNERS_GROOVER,
         new Object[]{
             ". ",
             "s.",
@@ -347,7 +337,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.POTTERS_CARVER,
+        EnumToolType.POTTERS_CARVER,
         new Object[]{
             "  .",
             "xsx",
@@ -359,7 +349,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.POTTERS_RAZOR,
+        EnumToolType.POTTERS_RAZOR,
         new Object[]{
             " . ",
             "x. ",
@@ -371,7 +361,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.UNIVERSAL_HATCHET,
+        EnumToolType.UNIVERSAL_HATCHET,
         new Object[]{
             " . ",
             "./ ",
@@ -382,7 +372,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.UNIVERSAL_FILE,
+        EnumToolType.UNIVERSAL_FILE,
         new Object[]{
             " /.",
             "/. ",
@@ -393,7 +383,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.DESIGNERS_PENCIL,
+        EnumToolType.DESIGNERS_PENCIL,
         new Object[]{
             "  c",
             "./.",
@@ -405,7 +395,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.DESIGNERS_TSQUARE,
+        EnumToolType.DESIGNERS_TSQUARE,
         new Object[]{
             "///",
             " . ",
@@ -416,7 +406,7 @@ public class ToolsRecipes {
     );
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.UNIVERSAL_SOLDERER,
+        EnumToolType.UNIVERSAL_SOLDERER,
         new Object[]{
             "  .",
             " . ",
@@ -498,7 +488,7 @@ public class ToolsRecipes {
    * @param substitution the substitution
    * @return object array containing the recipe shape and ingredient composition
    */
-  private static Object[] getRecipeDefinition(EnumWorktableToolType type, Object substitution) {
+  private static Object[] getRecipeDefinition(EnumToolType type, Object substitution) {
 
     Object[] objects = RECIPE_MAP.get(type);
 

@@ -3,7 +3,7 @@ package com.codetaylor.mc.artisantools;
 import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
 import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
 import com.codetaylor.mc.artisantools.api.tool.ItemWorktableToolBase;
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
+import com.codetaylor.mc.artisantools.api.tool.reference.EnumToolType;
 import com.codetaylor.mc.artisantools.event.ConstructModEventHandler;
 import com.codetaylor.mc.artisantools.event.ItemColorEventHandler;
 import com.codetaylor.mc.artisantools.event.ItemRegistrationEventHandler;
@@ -90,8 +90,8 @@ public class ArtisanToolsMod {
         allowedToolTypeList
     );
 
-    List<String> enabledToolTypeList = Arrays.stream(EnumWorktableToolType.values())
-        .map(EnumWorktableToolType::getName)
+    List<String> enabledToolTypeList = Arrays.stream(EnumToolType.values())
+        .map(EnumToolType::getName)
         .filter(allowedToolTypeList::contains)
         .collect(Collectors.toList());
 

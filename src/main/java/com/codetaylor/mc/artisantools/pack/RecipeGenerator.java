@@ -4,7 +4,7 @@ import com.codetaylor.mc.artisantools.ArtisanToolsMod;
 import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
 import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
 import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
+import com.codetaylor.mc.artisantools.api.tool.reference.EnumToolType;
 import com.codetaylor.mc.artisantools.lib.FileHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -35,7 +35,7 @@ public class RecipeGenerator
     RECIPE_MAP = new HashMap<>();
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.BLACKSMITHS_CUTTERS.getName(),
+        EnumToolType.BLACKSMITHS_CUTTERS.getName(),
         new RecipeTemplate(
             new String[]{
                 ". .",

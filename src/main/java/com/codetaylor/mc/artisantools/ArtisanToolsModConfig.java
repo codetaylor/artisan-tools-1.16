@@ -1,6 +1,6 @@
 package com.codetaylor.mc.artisantools;
 
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
+import com.codetaylor.mc.artisantools.api.tool.reference.EnumToolType;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraft.enchantment.Enchantment;
@@ -87,8 +87,8 @@ public class ArtisanToolsModConfig {
           )
           .defineList(
               "enabledToolTypes",
-              Arrays.stream(EnumWorktableToolType.values())
-                  .map(EnumWorktableToolType::getName)
+              Arrays.stream(EnumToolType.values())
+                  .map(EnumToolType::getName)
                   .collect(Collectors.toList()),
               o -> true
           );

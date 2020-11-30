@@ -68,7 +68,7 @@ public class TagGenerator
         toolByMaterialMap.computeIfAbsent(materialName, s -> new ArrayList<>()).add(toolName);
       }
 
-      this.writeTag("type/" + typeName.replaceAll("artisans_", ""), new Tag(toolByTypeList));
+      this.writeTag("type/" + typeName, new Tag(toolByTypeList));
     }
 
     for (Map.Entry<String, List<String>> entry : toolByMaterialMap.entrySet()) {

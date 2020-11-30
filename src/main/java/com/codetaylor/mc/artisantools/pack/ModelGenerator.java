@@ -67,10 +67,10 @@ public class ModelGenerator
     String parent;
 
     if (materialShiny) {
-      parent = ArtisanToolsMod.MOD_ID + ":item/" + typeName + "_highlighted";
+      parent = ArtisanToolsMod.MOD_ID + ":item/artisans_" + typeName + "_highlighted";
 
     } else {
-      parent = ArtisanToolsMod.MOD_ID + ":item/" + typeName;
+      parent = ArtisanToolsMod.MOD_ID + ":item/artisans_" + typeName;
     }
 
     BufferedWriter writer = null;
