@@ -2,7 +2,6 @@ package com.codetaylor.mc.artisantools.api.tool;
 
 import com.codetaylor.mc.artisantools.ArtisanToolsMod;
 import com.codetaylor.mc.artisantools.ArtisanToolsModConfig;
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -33,17 +32,17 @@ public abstract class ItemWorktableToolBase
 
   public static final String TOOLTIP_DURABILITY = "tooltip.artisantools.durability";
 
-  protected EnumWorktableToolType type;
+  protected String typeName;
   protected CustomMaterial material;
   protected Ingredient repairIngredient;
   protected String translationKey;
 
   private static final Logger LOGGER = LogManager.getLogger(ItemWorktableToolBase.class);
 
-  public ItemWorktableToolBase(CustomMaterial material, Set<Block> effectiveBlocks, EnumWorktableToolType type, Item.Properties properties) {
+  public ItemWorktableToolBase(CustomMaterial material, Set<Block> effectiveBlocks, String typeName, Item.Properties properties) {
 
     super(0, 0, material, effectiveBlocks, properties);
-    this.type = type;
+    this.typeName = typeName;
     this.material = material;
   }
 
@@ -103,11 +102,6 @@ public abstract class ItemWorktableToolBase
     }
   }
 
-  public EnumWorktableToolType getType() {
-
-    return this.type;
-  }
-
   public CustomMaterial getMaterial() {
 
     return this.material;
@@ -151,7 +145,7 @@ public abstract class ItemWorktableToolBase
     // item.artisantools.artisans.cutters.name=Artisan's %s Cutters
 
     if (this.translationKey == null) {
-      this.translationKey = "item." + ArtisanToolsMod.MOD_ID + "." + this.type.getName().replaceAll("_", ".") + ".name";
+      this.translationKey = "item." + ArtisanToolsMod.MOD_ID + "." + this.typeName.replaceAll("_", ".") + ".name";
     }
 
     return this.translationKey;

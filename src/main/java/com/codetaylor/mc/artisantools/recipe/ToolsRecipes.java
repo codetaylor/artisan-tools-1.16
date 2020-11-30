@@ -467,7 +467,7 @@ public class ToolsRecipes {
           ingredient = new ItemStack(parsedItem, 1);
         }
 
-        Object[] recipeDefinition = ToolsRecipes.getRecipeDefinition(
+        /*Object[] recipeDefinition = ToolsRecipes.getRecipeDefinition(
             item.getType(),
             ingredient
         );
@@ -479,7 +479,7 @@ public class ToolsRecipes {
         ResourceLocation resourceLocation = new ResourceLocation(
             modId,
             "recipe." + item.getType().getName() + "." + item.getMaterial().getName()
-        );
+        );*/
 //        ShapedPrimer shapedPrimer = ToolsRecipes.parseShaped(recipeDefinition);
 //        ShapedRecipe shapedRecipe = new ShapedRecipe(resourceLocation, "", shapedPrimer.width, shapedPrimer.height, shapedPrimer.input, new ItemStack(item));
 //        registry.put(resourceLocation, shapedRecipe);

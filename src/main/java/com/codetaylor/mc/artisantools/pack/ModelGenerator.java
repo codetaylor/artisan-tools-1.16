@@ -4,8 +4,6 @@ import com.codetaylor.mc.artisantools.ArtisanToolsMod;
 import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
 import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
 import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
-import com.codetaylor.mc.artisantools.lib.EnabledToolTypePredicate;
 import com.codetaylor.mc.artisantools.lib.FileHelper;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +21,7 @@ public class ModelGenerator
   private final Path path;
   private final List<CustomMaterial> materialList;
   private final List<CustomToolMaterialRegistrationEntry> customMaterialList;
-  private final EnabledToolTypePredicate enabledToolTypePredicate;
+  private final List<String> enabledToolTypeList;
   private final Logger logger;
 
   public ModelGenerator(
@@ -31,7 +29,7 @@ public class ModelGenerator
       Path path,
       List<CustomMaterial> materialList,
       List<CustomToolMaterialRegistrationEntry> customMaterialList,
-      EnabledToolTypePredicate enabledToolTypePredicate,
+      List<String> enabledToolTypeList,
       Logger logger
   ) {
 
@@ -39,20 +37,14 @@ public class ModelGenerator
     this.path = path;
     this.materialList = materialList;
     this.customMaterialList = customMaterialList;
-    this.enabledToolTypePredicate = enabledToolTypePredicate;
+    this.enabledToolTypeList = enabledToolTypeList;
     this.logger = logger;
   }
 
   @Override
   public void generate() {
 
-    for (EnumWorktableToolType type : EnumWorktableToolType.values()) {
-      String typeName = type.getName();
-
-      if (!this.enabledToolTypePredicate.test(typeName)) {
-        // User has disabled this tool type.
-        continue;
-      }
+    for (String typeName : this.enabledToolTypeList) {
 
       for (CustomMaterial material : this.materialList) {
         String materialName = material.getName();

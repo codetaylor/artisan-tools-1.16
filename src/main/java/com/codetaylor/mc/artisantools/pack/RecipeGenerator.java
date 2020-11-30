@@ -5,7 +5,6 @@ import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
 import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
 import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
 import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
-import com.codetaylor.mc.artisantools.lib.EnabledToolTypePredicate;
 import com.codetaylor.mc.artisantools.lib.FileHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -16,8 +15,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecipeGenerator
     implements IPackContentGenerator {
@@ -26,16 +26,16 @@ public class RecipeGenerator
   private final Path path;
   private final List<CustomMaterial> materialList;
   private final List<CustomToolMaterialRegistrationEntry> customMaterialList;
-  private final EnabledToolTypePredicate enabledToolTypePredicate;
+  private final List<String> enabledToolTypeList;
   private final Logger logger;
 
-  private static final EnumMap<EnumWorktableToolType, RecipeTemplate> RECIPE_MAP;
+  private static final Map<String, RecipeTemplate> RECIPE_MAP;
 
   static {
-    RECIPE_MAP = new EnumMap<>(EnumWorktableToolType.class);
+    RECIPE_MAP = new HashMap<>();
 
     RECIPE_MAP.put(
-        EnumWorktableToolType.BLACKSMITHS_CUTTERS,
+        EnumWorktableToolType.BLACKSMITHS_CUTTERS.getName(),
         new RecipeTemplate(
             new String[]{
                 ". .",
@@ -54,7 +54,7 @@ public class RecipeGenerator
       Gson gson,
       Path path, List<CustomMaterial> materialList,
       List<CustomToolMaterialRegistrationEntry> customMaterialList,
-      EnabledToolTypePredicate enabledToolTypePredicate,
+      List<String> enabledToolTypeList,
       Logger logger
   ) {
 
@@ -62,25 +62,19 @@ public class RecipeGenerator
     this.path = path;
     this.materialList = materialList;
     this.customMaterialList = customMaterialList;
-    this.enabledToolTypePredicate = enabledToolTypePredicate;
+    this.enabledToolTypeList = enabledToolTypeList;
     this.logger = logger;
   }
 
   @Override
   public void generate() {
 
-    for (EnumWorktableToolType type : EnumWorktableToolType.values()) {
-      String typeName = type.getName();
+    for (String typeName : this.enabledToolTypeList) {
 
-      if (!this.enabledToolTypePredicate.test(typeName)) {
-        // User has disabled this tool type.
-        continue;
-      }
-
-      RecipeTemplate recipeTemplate = RECIPE_MAP.get(type);
+      RecipeTemplate recipeTemplate = RECIPE_MAP.get(typeName);
 
       if (recipeTemplate == null) {
-        this.logger.error("Missing recipe template for type: " + type);
+        this.logger.error("Missing recipe template for type: " + typeName);
         continue;
       }
 

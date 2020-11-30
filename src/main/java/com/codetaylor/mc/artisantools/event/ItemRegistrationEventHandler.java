@@ -2,9 +2,7 @@ package com.codetaylor.mc.artisantools.event;
 
 import com.codetaylor.mc.artisantools.ArtisanToolsMod;
 import com.codetaylor.mc.artisantools.api.tool.*;
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
 import com.codetaylor.mc.artisantools.item.ItemWorktableTool;
-import com.codetaylor.mc.artisantools.lib.EnabledToolTypePredicate;
 import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
 import com.codetaylor.mc.artisantools.material.CustomMaterialConverter;
 import net.minecraft.item.Item;
@@ -20,7 +18,7 @@ public class ItemRegistrationEventHandler {
   private final List<CustomMaterial> materialList;
   private final List<CustomToolMaterialRegistrationEntry> customMaterialList;
   private final GenerationInhibitor generationInhibitor;
-  private final EnabledToolTypePredicate enabledToolTypePredicate;
+  private final List<String> enabledToolTypeList;
   private final List<ItemWorktableToolBase> registeredToolList;
   private final CustomMaterialConverter customMaterialConverter;
 
@@ -28,7 +26,7 @@ public class ItemRegistrationEventHandler {
       List<CustomMaterial> materialList,
       List<CustomToolMaterialRegistrationEntry> customMaterialList,
       GenerationInhibitor generationInhibitor,
-      EnabledToolTypePredicate enabledToolTypePredicate,
+      List<String> enabledToolTypeList,
       List<ItemWorktableToolBase> registeredToolList,
       CustomMaterialConverter customMaterialConverter
   ) {
@@ -36,7 +34,7 @@ public class ItemRegistrationEventHandler {
     this.materialList = materialList;
     this.customMaterialList = customMaterialList;
     this.generationInhibitor = generationInhibitor;
-    this.enabledToolTypePredicate = enabledToolTypePredicate;
+    this.enabledToolTypeList = enabledToolTypeList;
     this.registeredToolList = registeredToolList;
     this.customMaterialConverter = customMaterialConverter;
   }
@@ -48,18 +46,12 @@ public class ItemRegistrationEventHandler {
       return;
     }
 
-    for (EnumWorktableToolType type : EnumWorktableToolType.values()) {
-      String typeName = type.getName();
-
-      if (!this.enabledToolTypePredicate.test(typeName)) {
-        // User has disabled this tool type.
-        continue;
-      }
+    for (String typeName : this.enabledToolTypeList) {
 
       for (CustomMaterial material : this.materialList) {
         String materialName = material.getName();
         Item.Properties properties = new Item.Properties().maxStackSize(1);
-        ItemWorktableToolBase item = new ItemWorktableTool(type, material, properties);
+        ItemWorktableToolBase item = new ItemWorktableTool(typeName, material, properties);
         this.registerTool(event.getRegistry(), typeName, materialName, item);
       }
 
@@ -67,7 +59,7 @@ public class ItemRegistrationEventHandler {
         ICustomToolMaterial material = entry.getMaterial();
         ICustomToolProvider<?> provider = entry.getProvider();
         CustomMaterial customMaterial = this.customMaterialConverter.convert(material);
-        ItemWorktableToolBase item = provider.get(type, customMaterial);
+        ItemWorktableToolBase item = provider.get(typeName, customMaterial);
         String materialName = customMaterial.getName();
         this.registerTool(event.getRegistry(), typeName, materialName, item);
       }

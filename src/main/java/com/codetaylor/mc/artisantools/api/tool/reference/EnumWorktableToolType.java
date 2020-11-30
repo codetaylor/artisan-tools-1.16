@@ -1,5 +1,6 @@
 package com.codetaylor.mc.artisantools.api.tool.reference;
 
+// TODO remove oredict suffix
 public enum EnumWorktableToolType {
 
   // Blacksmith

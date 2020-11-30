@@ -11,11 +11,11 @@ public class ItemWorktableTool
     extends ItemWorktableToolBase {
 
   public ItemWorktableTool(
-      EnumWorktableToolType type,
+      String typeName,
       CustomMaterial material,
       Item.Properties properties
   ) {
 
-    super(material, Collections.emptySet(), type, properties);
+    super(material, Collections.emptySet(), typeName, properties);
   }
 }

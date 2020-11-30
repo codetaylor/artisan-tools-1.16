@@ -3,6 +3,7 @@ package com.codetaylor.mc.artisantools;
 import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
 import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
 import com.codetaylor.mc.artisantools.api.tool.ItemWorktableToolBase;
+import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
 import com.codetaylor.mc.artisantools.event.ConstructModEventHandler;
 import com.codetaylor.mc.artisantools.event.ItemColorEventHandler;
 import com.codetaylor.mc.artisantools.event.ItemRegistrationEventHandler;
@@ -29,7 +30,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mod(ArtisanToolsMod.MOD_ID)
 public class ArtisanToolsMod {
@@ -75,7 +78,7 @@ public class ArtisanToolsMod {
     Path configPath = FMLPaths.CONFIGDIR.get().resolve(MOD_ID);
     ConfigFilePathSupplier customMaterialPathSupplier = new ConfigFilePathSupplier(configPath, TOOL_MATERIALS_CUSTOM_JSON);
 
-    List<? extends String> allowedToolTypes = ArtisanToolsModConfig.CONFIG.enabledToolTypes.get();
+    List<? extends String> allowedToolTypeList = ArtisanToolsModConfig.CONFIG.enabledToolTypes.get();
     boolean disableGeneration = ArtisanToolsModConfig.CONFIG.disableGeneration.get();
     boolean enableCompression = ArtisanToolsModConfig.CONFIG.enableCompression.get();
 
@@ -84,12 +87,13 @@ public class ArtisanToolsMod {
     GenerationInhibitor generationInhibitor = new GenerationInhibitor(
         disableGeneration,
         materialList,
-        allowedToolTypes
+        allowedToolTypeList
     );
 
-    EnabledToolTypePredicate enabledToolTypePredicate = new EnabledToolTypePredicate(
-        allowedToolTypes
-    );
+    List<String> enabledToolTypeList = Arrays.stream(EnumWorktableToolType.values())
+        .map(EnumWorktableToolType::getName)
+        .filter(allowedToolTypeList::contains)
+        .collect(Collectors.toList());
 
     modEventBus.register(new ConstructModEventHandler(
         new MaterialFileGenerator(
@@ -133,7 +137,7 @@ public class ArtisanToolsMod {
                 GENERATED_RESOURCE_PACK_MODEL_PATH,
                 materialList,
                 customMaterialList,
-                enabledToolTypePredicate,
+                enabledToolTypeList,
                 LOGGER
             ),
             generationInhibitor,
@@ -175,7 +179,7 @@ public class ArtisanToolsMod {
                     GENERATED_DATA_PACK_RECIPE_PATH,
                     materialList,
                     customMaterialList,
-                    enabledToolTypePredicate,
+                    enabledToolTypeList,
                     LOGGER
                 ),
                 new TagGenerator(
@@ -183,7 +187,7 @@ public class ArtisanToolsMod {
                     GENERATED_DATA_PACK_TAG_ITEM_PATH,
                     materialList,
                     customMaterialList,
-                    enabledToolTypePredicate,
+                    enabledToolTypeList,
                     LOGGER
                 )
             ),
@@ -209,7 +213,7 @@ public class ArtisanToolsMod {
         materialList,
         customMaterialList,
         generationInhibitor,
-        enabledToolTypePredicate,
+        enabledToolTypeList,
         registeredToolList,
         new CustomMaterialConverter()
     ));
