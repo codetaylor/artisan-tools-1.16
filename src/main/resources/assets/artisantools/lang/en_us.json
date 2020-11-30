@@ -39,5 +39,16 @@
   "material.artisantools.gold": "Golden",
   "material.artisantools.iron": "Iron",
   "material.artisantools.diamond": "Diamond",
-  "material.artisantools.netherite": "Netherite"
+  "material.artisantools.netherite": "Netherite",
+  "material.artisantools.flint": "Flint",
+  "material.artisantools.bone": "Bone",
+  "material.artisantools.bronze": "Bronze",
+  "material.artisantools.constantan": "Constantan",
+  "material.artisantools.copper": "Copper",
+  "material.artisantools.electrum": "Electrum",
+  "material.artisantools.invar": "Invar",
+  "material.artisantools.lead": "Lead",
+  "material.artisantools.nickel": "Nickel",
+  "material.artisantools.silver": "Silver",
+  "material.artisantools.tin": "Tin"
 }
