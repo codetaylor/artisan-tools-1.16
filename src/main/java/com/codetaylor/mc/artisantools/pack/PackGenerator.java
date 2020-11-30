@@ -1,13 +1,10 @@
 package com.codetaylor.mc.artisantools.pack;
 
-import com.codetaylor.mc.artisantools.lib.FolderCompressor;
-import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
-import com.codetaylor.mc.artisantools.lib.PathCreator;
-import com.codetaylor.mc.artisantools.lib.PathRemover;
+import com.codetaylor.mc.artisantools.lib.*;
 
 public class PackGenerator {
 
-  private final PathCreator pathCreator;
+  private final IPathCreator pathCreator;
   private final PackMetaWriter packMetaWriter;
   private final IPackContentGenerator contentGenerator;
   private final GenerationInhibitor generationInhibitor;
@@ -16,7 +13,7 @@ public class PackGenerator {
   private final PathRemover pathRemover;
 
   public PackGenerator(
-      PathCreator pathCreator,
+      IPathCreator pathCreator,
       PackMetaWriter packMetaWriter,
       IPackContentGenerator contentGenerator,
       GenerationInhibitor generationInhibitor,

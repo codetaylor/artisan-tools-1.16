@@ -40,12 +40,17 @@ public class ArtisanToolsMod {
   public static final Path CONFIG_PATH = FMLPaths.CONFIGDIR.get();
   public static final Path MOD_CONFIG_PATH = CONFIG_PATH.resolve(MOD_ID);
   public static final Path GENERATED_PATH = MOD_CONFIG_PATH.resolve("generated");
+
   public static final Path GENERATED_RESOURCE_PACK_PATH = GENERATED_PATH.resolve("resourcepack");
   public static final Path GENERATED_RESOURCE_PACK_ZIPPED_PATH = GENERATED_PATH.resolve("resourcepack.zip");
   public static final Path GENERATED_RESOURCE_PACK_MODEL_PATH = GENERATED_RESOURCE_PACK_PATH.resolve("assets/artisantools/models/item");
+
   public static final Path GENERATED_DATA_PACK_PATH = GENERATED_PATH.resolve("datapack");
   public static final Path GENERATED_DATA_PACK_ZIPPED_PATH = GENERATED_PATH.resolve("datapack.zip");
   public static final Path GENERATED_DATA_PACK_RECIPE_PATH = GENERATED_DATA_PACK_PATH.resolve("data/artisantools/recipes");
+  public static final Path GENERATED_DATA_PACK_TAG_ITEM_PATH = GENERATED_DATA_PACK_PATH.resolve("data/artisantools/tags/items");
+  public static final Path GENERATED_DATA_PACK_TAG_ITEM_TYPE_PATH = GENERATED_DATA_PACK_PATH.resolve("data/artisantools/tags/items/type");
+  public static final Path GENERATED_DATA_PACK_TAG_ITEM_MATERIAL_PATH = GENERATED_DATA_PACK_PATH.resolve("data/artisantools/tags/items/material");
 
   private static final String TOOL_MATERIALS_CUSTOM_JSON = "tool.materials.custom.json";
   private static final String TOOL_MATERIALS_GENERATED_JSON = "tool.materials.generated.json";
@@ -144,9 +149,19 @@ public class ArtisanToolsMod {
             )
         ),
         new PackGenerator(
-            new PathCreator(
-                GENERATED_DATA_PACK_RECIPE_PATH,
-                LOGGER
+            new MultiPathCreator(
+                new PathCreator(
+                    GENERATED_DATA_PACK_RECIPE_PATH,
+                    LOGGER
+                ),
+                new PathCreator(
+                    GENERATED_DATA_PACK_TAG_ITEM_TYPE_PATH,
+                    LOGGER
+                ),
+                new PathCreator(
+                    GENERATED_DATA_PACK_TAG_ITEM_MATERIAL_PATH,
+                    LOGGER
+                )
             ),
             new PackMetaWriter(
                 gson,
@@ -154,13 +169,23 @@ public class ArtisanToolsMod {
                 "Data pack generated for Artisan Tools.",
                 LOGGER
             ),
-            new RecipeGenerator(
-                gson,
-                GENERATED_DATA_PACK_RECIPE_PATH,
-                materialList,
-                customMaterialList,
-                enabledToolTypePredicate,
-                LOGGER
+            new MultiPackContentGenerator(
+                new RecipeGenerator(
+                    gson,
+                    GENERATED_DATA_PACK_RECIPE_PATH,
+                    materialList,
+                    customMaterialList,
+                    enabledToolTypePredicate,
+                    LOGGER
+                ),
+                new TagGenerator(
+                    gson,
+                    GENERATED_DATA_PACK_TAG_ITEM_PATH,
+                    materialList,
+                    customMaterialList,
+                    enabledToolTypePredicate,
+                    LOGGER
+                )
             ),
             generationInhibitor,
             enableCompression,

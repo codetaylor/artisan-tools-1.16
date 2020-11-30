@@ -18,7 +18,6 @@ public class DataCustomMaterial
   @SerializedName("ingredient")
   private String ingredientString;
   private String langKey;
-  private String tag;
 
   public DataCustomMaterial(
       String name,
@@ -30,8 +29,7 @@ public class DataCustomMaterial
       String color,
       boolean shiny,
       String ingredientString,
-      String langKey,
-      String tag
+      String langKey
   ) {
 
     this.name = name;
@@ -44,7 +42,6 @@ public class DataCustomMaterial
     this.shiny = shiny;
     this.ingredientString = ingredientString;
     this.langKey = langKey;
-    this.tag = tag;
   }
 
   @Override
@@ -105,11 +102,5 @@ public class DataCustomMaterial
   public String getLangKey() {
 
     return this.langKey;
-  }
-
-  @Override
-  public String getTag() {
-
-    return this.tag;
   }
 }

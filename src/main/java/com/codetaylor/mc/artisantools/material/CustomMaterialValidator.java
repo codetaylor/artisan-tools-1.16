@@ -45,10 +45,6 @@ public class CustomMaterialValidator {
     if (data.getLangKey() == null || data.getLangKey().isEmpty()) {
       throw new CustomMaterialValidationException("Material: [" + data.getLangKey() + "], key: [langKey] missing or empty lang key");
     }
-
-    if (data.getTag() == null || data.getTag().isEmpty()) {
-      throw new CustomMaterialValidationException("Material: [" + data.getLangKey() + "], key: [oreDictKey] missing or empty ore dict key");
-    }
   }
 
 }

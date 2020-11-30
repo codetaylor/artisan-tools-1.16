@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class PathCreator {
+public class PathCreator
+    implements IPathCreator {
 
   private final Logger logger;
   private final Path path;
@@ -17,6 +18,7 @@ public class PathCreator {
     this.path = path;
   }
 
+  @Override
   public boolean create() {
 
     try {

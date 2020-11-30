@@ -21,6 +21,4 @@ public interface ICustomToolMaterial {
   String getIngredientString();
 
   String getLangKey();
-
-  String getTag();
 }

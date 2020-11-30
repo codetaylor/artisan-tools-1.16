@@ -22,8 +22,7 @@ public class DataCustomMaterialListFactory {
         "73523E",
         false,
         "tag#minecraft:planks",
-        "material.artisantools.wood",
-        "wood"
+        "material.artisantools.wood"
     ));
 
     // Stone
@@ -37,8 +36,7 @@ public class DataCustomMaterialListFactory {
         "969696",
         false,
         "tag#forge:stone",
-        "material.artisantools.stone",
-        "stone"
+        "material.artisantools.stone"
     ));
 
     // Iron
@@ -52,8 +50,7 @@ public class DataCustomMaterialListFactory {
         "D4D4D4",
         true,
         "tag#forge:ingots/iron",
-        "material.artisantools.iron",
-        "iron"
+        "material.artisantools.iron"
     ));
 
     // Gold
@@ -67,8 +64,7 @@ public class DataCustomMaterialListFactory {
         "FFE947",
         false,
         "tag#forge:ingots/gold",
-        "material.artisantools.gold",
-        "gold"
+        "material.artisantools.gold"
     ));
 
     // Diamond
@@ -82,8 +78,7 @@ public class DataCustomMaterialListFactory {
         "33EBCB",
         false,
         "tag#forge:gems/diamond",
-        "material.artisantools.diamond",
-        "diamond"
+        "material.artisantools.diamond"
     ));
 
     return new DataCustomMaterialList(list);
