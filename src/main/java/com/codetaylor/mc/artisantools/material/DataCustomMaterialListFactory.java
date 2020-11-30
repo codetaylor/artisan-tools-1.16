@@ -81,6 +81,20 @@ public class DataCustomMaterialListFactory {
         "material.artisantools.diamond"
     ));
 
+    // Netherite
+    list.add(new DataCustomMaterial(
+        "netherite",
+        ItemTier.NETHERITE.getHarvestLevel(),
+        ItemTier.NETHERITE.getMaxUses(),
+        ItemTier.NETHERITE.getEfficiency(),
+        ItemTier.NETHERITE.getAttackDamage(),
+        ItemTier.NETHERITE.getEnchantability(),
+        "756975",
+        false,
+        "tag#forge:ingots/netherite",
+        "material.artisantools.netherite"
+    ));
+
     return new DataCustomMaterialList(list);
   }
 }

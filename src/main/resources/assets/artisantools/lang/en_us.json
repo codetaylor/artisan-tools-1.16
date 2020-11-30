@@ -37,5 +37,6 @@
   "material.artisantools.stone": "Stone",
   "material.artisantools.gold": "Golden",
   "material.artisantools.iron": "Iron",
-  "material.artisantools.diamond": "Diamond"
+  "material.artisantools.diamond": "Diamond",
+  "material.artisantools.netherite": "Netherite"
 }
