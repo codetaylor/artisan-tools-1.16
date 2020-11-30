@@ -180,6 +180,7 @@ public class ArtisanToolsMod {
                     materialList,
                     customMaterialList,
                     enabledToolTypeList,
+                    new RecipeTemplateFactory().create(),
                     LOGGER
                 ),
                 new TagGenerator(

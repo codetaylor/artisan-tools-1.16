@@ -4,7 +4,6 @@ import com.codetaylor.mc.artisantools.ArtisanToolsMod;
 import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
 import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
 import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumToolType;
 import com.codetaylor.mc.artisantools.lib.FileHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,7 +14,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,34 +25,15 @@ public class RecipeGenerator
   private final List<CustomMaterial> materialList;
   private final List<CustomToolMaterialRegistrationEntry> customMaterialList;
   private final List<String> enabledToolTypeList;
+  private final Map<String, RecipeTemplate> recipeTemplateMap;
   private final Logger logger;
-
-  private static final Map<String, RecipeTemplate> RECIPE_MAP;
-
-  static {
-    RECIPE_MAP = new HashMap<>();
-
-    RECIPE_MAP.put(
-        EnumToolType.BLACKSMITHS_CUTTERS.getName(),
-        new RecipeTemplate(
-            new String[]{
-                ". .",
-                " x ",
-                "s s"
-            },
-            new String[]{
-                "x", "tag#forge:string",
-                "s", "item#minecraft:stick"
-            }
-        )
-    );
-  }
 
   public RecipeGenerator(
       Gson gson,
       Path path, List<CustomMaterial> materialList,
       List<CustomToolMaterialRegistrationEntry> customMaterialList,
       List<String> enabledToolTypeList,
+      Map<String, RecipeTemplate> recipeTemplateMap,
       Logger logger
   ) {
 
@@ -63,6 +42,7 @@ public class RecipeGenerator
     this.materialList = materialList;
     this.customMaterialList = customMaterialList;
     this.enabledToolTypeList = enabledToolTypeList;
+    this.recipeTemplateMap = recipeTemplateMap;
     this.logger = logger;
   }
 
@@ -71,7 +51,7 @@ public class RecipeGenerator
 
     for (String typeName : this.enabledToolTypeList) {
 
-      RecipeTemplate recipeTemplate = RECIPE_MAP.get(typeName);
+      RecipeTemplate recipeTemplate = this.recipeTemplateMap.get(typeName);
 
       if (recipeTemplate == null) {
         this.logger.error("Missing recipe template for type: " + typeName);
@@ -131,15 +111,15 @@ public class RecipeGenerator
 
     JsonArray pattern = new JsonArray();
     root.add("pattern", pattern);
-    for (int i = 0; i < recipeTemplate.pattern.length; i++) {
-      pattern.add(recipeTemplate.pattern[i]);
+    for (int i = 0; i < recipeTemplate.getPattern().length; i++) {
+      pattern.add(recipeTemplate.getPattern()[i]);
     }
 
     JsonObject key = new JsonObject();
     root.add("key", key);
-    for (int i = 0; i < recipeTemplate.key.length; i += 2) {
-      String k = recipeTemplate.key[i];
-      String v = recipeTemplate.key[i + 1];
+    for (int i = 0; i < recipeTemplate.getKey().length; i += 2) {
+      String k = recipeTemplate.getKey()[i];
+      String v = recipeTemplate.getKey()[i + 1];
       JsonObject ingredient = this.parseIngredient(v);
       key.add(k, ingredient);
     }
@@ -181,15 +161,4 @@ public class RecipeGenerator
     }
   }
 
-  public static class RecipeTemplate {
-
-    private final String[] pattern;
-    private final String[] key;
-
-    public RecipeTemplate(String[] pattern, String[] key) {
-
-      this.pattern = pattern;
-      this.key = key;
-    }
-  }
 }
