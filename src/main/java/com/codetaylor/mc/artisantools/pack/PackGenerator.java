@@ -5,32 +5,30 @@ import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
 import com.codetaylor.mc.artisantools.lib.PathCreator;
 import com.codetaylor.mc.artisantools.lib.PathRemover;
 
-import java.util.function.BooleanSupplier;
+public class PackGenerator {
 
-public class ResourcePackGenerator {
-
-  private final PathCreator modelPathCreator;
+  private final PathCreator pathCreator;
   private final PackMetaWriter packMetaWriter;
-  private final ModelGenerator modelGenerator;
+  private final IPackContentGenerator contentGenerator;
   private final GenerationInhibitor generationInhibitor;
-  private final BooleanSupplier enableFolderCompression;
+  private final boolean enableFolderCompression;
   private final FolderCompressor folderCompressor;
   private final PathRemover pathRemover;
 
-  public ResourcePackGenerator(
-      PathCreator modelPathCreator,
+  public PackGenerator(
+      PathCreator pathCreator,
       PackMetaWriter packMetaWriter,
-      ModelGenerator modelGenerator,
+      IPackContentGenerator contentGenerator,
       GenerationInhibitor generationInhibitor,
-      BooleanSupplier enableFolderCompression,
+      boolean enableFolderCompression,
       FolderCompressor folderCompressor,
       PathRemover pathRemover
   ) {
 
-    this.modelPathCreator = modelPathCreator;
     this.packMetaWriter = packMetaWriter;
-    this.modelGenerator = modelGenerator;
+    this.contentGenerator = contentGenerator;
     this.generationInhibitor = generationInhibitor;
+    this.pathCreator = pathCreator;
     this.enableFolderCompression = enableFolderCompression;
     this.folderCompressor = folderCompressor;
     this.pathRemover = pathRemover;
@@ -42,11 +40,11 @@ public class ResourcePackGenerator {
       return;
     }
 
-    if (this.modelPathCreator.create()) {
+    if (this.pathCreator.create()) {
       this.packMetaWriter.write();
-      this.modelGenerator.generate();
+      this.contentGenerator.generate();
 
-      if (this.enableFolderCompression.getAsBoolean()
+      if (this.enableFolderCompression
           && this.folderCompressor.compress()) {
         this.pathRemover.remove();
       }

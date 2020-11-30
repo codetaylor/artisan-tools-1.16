@@ -30,7 +30,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 @Mod(ArtisanToolsMod.MOD_ID)
 public class ArtisanToolsMod {
@@ -47,8 +46,6 @@ public class ArtisanToolsMod {
   public static final Path GENERATED_DATA_PACK_PATH = GENERATED_PATH.resolve("datapack");
   public static final Path GENERATED_DATA_PACK_ZIPPED_PATH = GENERATED_PATH.resolve("datapack.zip");
   public static final Path GENERATED_DATA_PACK_RECIPE_PATH = GENERATED_DATA_PACK_PATH.resolve("data/artisantools/recipes");
-
-  public static final BooleanSupplier ENABLE_COMPRESSION = () -> ArtisanToolsModConfig.CONFIG.enableCompression.get();
 
   private static final String TOOL_MATERIALS_CUSTOM_JSON = "tool.materials.custom.json";
   private static final String TOOL_MATERIALS_GENERATED_JSON = "tool.materials.generated.json";
@@ -74,6 +71,7 @@ public class ArtisanToolsMod {
     ConfigFilePathSupplier customMaterialPathSupplier = new ConfigFilePathSupplier(configPath, TOOL_MATERIALS_CUSTOM_JSON);
 
     List<? extends String> allowedToolTypes = ArtisanToolsModConfig.CONFIG.enabledToolTypes.get();
+    boolean enableCompression = ArtisanToolsModConfig.CONFIG.enableCompression.get();
 
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -112,7 +110,7 @@ public class ArtisanToolsMod {
                 LOGGER
             )
         ),
-        new ResourcePackGenerator(
+        new PackGenerator(
             new PathCreator(
                 GENERATED_RESOURCE_PACK_MODEL_PATH,
                 LOGGER
@@ -132,7 +130,7 @@ public class ArtisanToolsMod {
                 LOGGER
             ),
             generationInhibitor,
-            ENABLE_COMPRESSION,
+            enableCompression,
             new FolderCompressor(
                 GENERATED_RESOURCE_PACK_PATH,
                 GENERATED_RESOURCE_PACK_ZIPPED_PATH,
@@ -143,7 +141,7 @@ public class ArtisanToolsMod {
                 LOGGER
             )
         ),
-        new DataPackGenerator(
+        new PackGenerator(
             new PathCreator(
                 GENERATED_DATA_PACK_RECIPE_PATH,
                 LOGGER
@@ -163,7 +161,7 @@ public class ArtisanToolsMod {
                 LOGGER
             ),
             generationInhibitor,
-            ENABLE_COMPRESSION,
+            enableCompression,
             new FolderCompressor(
                 GENERATED_DATA_PACK_PATH,
                 GENERATED_DATA_PACK_ZIPPED_PATH,

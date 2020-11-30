@@ -1,11 +1,11 @@
 package com.codetaylor.mc.artisantools.pack;
 
 import com.codetaylor.mc.artisantools.ArtisanToolsMod;
-import com.codetaylor.mc.artisantools.lib.EnabledToolTypePredicate;
 import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
 import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
 import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
 import com.codetaylor.mc.artisantools.api.tool.reference.EnumWorktableToolType;
+import com.codetaylor.mc.artisantools.lib.EnabledToolTypePredicate;
 import com.codetaylor.mc.artisantools.lib.FileHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -19,7 +19,8 @@ import java.nio.file.Path;
 import java.util.EnumMap;
 import java.util.List;
 
-public class RecipeGenerator {
+public class RecipeGenerator
+    implements IPackContentGenerator {
 
   private final Gson gson;
   private final Path path;
@@ -65,6 +66,7 @@ public class RecipeGenerator {
     this.logger = logger;
   }
 
+  @Override
   public void generate() {
 
     for (EnumWorktableToolType type : EnumWorktableToolType.values()) {
