@@ -61,7 +61,7 @@ public class DataCustomMaterialListFactory {
         ItemTier.GOLD.getEfficiency(),
         ItemTier.GOLD.getAttackDamage(),
         ItemTier.GOLD.getEnchantability(),
-        "FFE947",
+        "FAF25E",
         false,
         "tag#forge:ingots/gold",
         "material.artisantools.gold"

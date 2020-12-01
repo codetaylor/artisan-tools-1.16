@@ -15,7 +15,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.0-SNAPSHOT'
+version = '1.16.4-1.0.0-SNAPSHOT'
 group = 'com.codetaylor.mc.artisantools'
 archivesBaseName = 'artisantools'
 
