@@ -125,8 +125,6 @@ public abstract class ItemWorktableToolBase
   @Override
   public ITextComponent getDisplayName(ItemStack stack) {
 
-    // This is called on the server so we can't use net/minecraft/client/resources/I18n here.
-
     Item item = stack.getItem();
 
     if (item instanceof ItemWorktableToolBase) {

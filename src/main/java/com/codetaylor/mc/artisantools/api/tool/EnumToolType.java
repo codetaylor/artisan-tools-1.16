@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.api.tool.reference;
+package com.codetaylor.mc.artisantools.api.tool;
 
 public enum EnumToolType {
 

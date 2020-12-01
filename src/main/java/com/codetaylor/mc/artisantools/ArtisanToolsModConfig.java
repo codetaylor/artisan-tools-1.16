@@ -1,6 +1,6 @@
 package com.codetaylor.mc.artisantools;
 
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumToolType;
+import com.codetaylor.mc.artisantools.api.tool.EnumToolType;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraft.enchantment.Enchantment;

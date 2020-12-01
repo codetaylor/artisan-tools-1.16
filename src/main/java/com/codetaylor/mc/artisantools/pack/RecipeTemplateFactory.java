@@ -1,6 +1,6 @@
 package com.codetaylor.mc.artisantools.pack;
 
-import com.codetaylor.mc.artisantools.api.tool.reference.EnumToolType;
+import com.codetaylor.mc.artisantools.api.tool.EnumToolType;
 
 import java.util.HashMap;
 import java.util.Map;

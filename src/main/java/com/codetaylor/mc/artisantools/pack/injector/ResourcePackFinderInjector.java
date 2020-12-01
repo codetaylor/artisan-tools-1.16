@@ -1,6 +1,6 @@
 package com.codetaylor.mc.artisantools.pack.injector;
 
-import com.codetaylor.mc.artisantools.lib.SinglePackFinder;
+import com.codetaylor.mc.artisantools.pack.SinglePackFinder;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.DistExecutor;
 
