@@ -1,0 +1,14 @@
+site_name: Artisan Tools 1.16
+
+pages:
+  - Introduction: index.md
+  - ChangeLog: changelog.md
+  - Generation: generation.md
+  - Materials: materials.md
+  - Development:
+    - Contributor's License Agreement: cla.md
+
+theme: readthedocs
+
+markdown_extensions:
+  - admonition
