@@ -1,9 +1,9 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "artisantools:items/artisans_framing_hammer_base",
-    "layer1": "artisantools:items/artisans_framing_hammer_color",
-    "layer2": "artisantools:items/artisans_framing_hammer_highlight",
-    "layer3": "artisantools:items/artisans_framing_hammer_overlay"
+    "layer0": "artisantools:item/artisans_framing_hammer_base",
+    "layer1": "artisantools:item/artisans_framing_hammer_color",
+    "layer2": "artisantools:item/artisans_framing_hammer_highlight",
+    "layer3": "artisantools:item/artisans_framing_hammer_overlay"
   }
 }

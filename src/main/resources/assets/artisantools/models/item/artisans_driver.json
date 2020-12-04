@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "artisantools:items/artisans_driver_base",
-    "layer1": "artisantools:items/artisans_driver_color"
+    "layer0": "artisantools:item/artisans_driver_base",
+    "layer1": "artisantools:item/artisans_driver_color"
   }
 }

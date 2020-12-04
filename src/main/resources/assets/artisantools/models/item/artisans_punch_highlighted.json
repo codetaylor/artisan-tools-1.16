@@ -1,8 +1,8 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "artisantools:items/artisans_punch_base",
-    "layer1": "artisantools:items/artisans_punch_color",
-    "layer2": "artisantools:items/artisans_punch_highlight"
+    "layer0": "artisantools:item/artisans_punch_base",
+    "layer1": "artisantools:item/artisans_punch_color",
+    "layer2": "artisantools:item/artisans_punch_highlight"
   }
 }

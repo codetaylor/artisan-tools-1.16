@@ -1,8 +1,8 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "artisantools:items/artisans_compass_base",
-    "layer1": "artisantools:items/artisans_compass_color",
-    "layer2": "artisantools:items/artisans_compass_highlight"
+    "layer0": "artisantools:item/artisans_compass_base",
+    "layer1": "artisantools:item/artisans_compass_color",
+    "layer2": "artisantools:item/artisans_compass_highlight"
   }
 }

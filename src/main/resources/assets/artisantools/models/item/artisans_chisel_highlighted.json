@@ -1,8 +1,8 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "artisantools:items/artisans_chisel_base",
-    "layer1": "artisantools:items/artisans_chisel_color",
-    "layer2": "artisantools:items/artisans_chisel_highlight"
+    "layer0": "artisantools:item/artisans_chisel_base",
+    "layer1": "artisantools:item/artisans_chisel_color",
+    "layer2": "artisantools:item/artisans_chisel_highlight"
   }
 }

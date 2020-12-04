@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "artisantools:items/artisans_hatchet_base",
-    "layer1": "artisantools:items/artisans_hatchet_color"
+    "layer0": "artisantools:item/artisans_hatchet_base",
+    "layer1": "artisantools:item/artisans_hatchet_color"
   }
 }
