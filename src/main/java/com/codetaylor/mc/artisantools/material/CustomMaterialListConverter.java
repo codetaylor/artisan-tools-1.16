@@ -1,7 +1,7 @@
 package com.codetaylor.mc.artisantools.material;
 
-import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
-import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
+import com.codetaylor.mc.artisantools.api.ICustomToolMaterial;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
@@ -21,9 +21,9 @@ public class CustomMaterialListConverter {
     this.customMaterialConverter = customMaterialConverter;
   }
 
-  public List<CustomMaterial> convert(DataCustomMaterialList data, Logger logger) {
+  public List<CustomToolMaterial> convert(DataCustomMaterialList data, Logger logger) {
 
-    List<CustomMaterial> result = new ArrayList<>();
+    List<CustomToolMaterial> result = new ArrayList<>();
     List<DataCustomMaterial> list = data.getList();
 
     for (ICustomToolMaterial dataCustomMaterial : list) {

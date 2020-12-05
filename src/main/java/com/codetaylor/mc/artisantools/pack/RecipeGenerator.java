@@ -1,9 +1,9 @@
 package com.codetaylor.mc.artisantools.pack;
 
 import com.codetaylor.mc.artisantools.ArtisanToolsMod;
-import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
-import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
-import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterialRegistrationEntry;
+import com.codetaylor.mc.artisantools.api.ICustomToolMaterial;
 import com.codetaylor.mc.artisantools.lib.FileHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -22,7 +22,7 @@ public class RecipeGenerator
 
   private final Gson gson;
   private final Path path;
-  private final List<CustomMaterial> materialList;
+  private final List<CustomToolMaterial> materialList;
   private final List<CustomToolMaterialRegistrationEntry> customMaterialList;
   private final List<String> enabledToolTypeList;
   private final Map<String, RecipeTemplate> recipeTemplateMap;
@@ -30,7 +30,7 @@ public class RecipeGenerator
 
   public RecipeGenerator(
       Gson gson,
-      Path path, List<CustomMaterial> materialList,
+      Path path, List<CustomToolMaterial> materialList,
       List<CustomToolMaterialRegistrationEntry> customMaterialList,
       List<String> enabledToolTypeList,
       Map<String, RecipeTemplate> recipeTemplateMap,
@@ -58,7 +58,7 @@ public class RecipeGenerator
         continue;
       }
 
-      for (CustomMaterial material : this.materialList) {
+      for (CustomToolMaterial material : this.materialList) {
         String materialName = material.getName();
         String ingredientString = material.getIngredientString();
 

@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.api.tool;
+package com.codetaylor.mc.artisantools.api;
 
 public interface ICustomToolMaterial {
 

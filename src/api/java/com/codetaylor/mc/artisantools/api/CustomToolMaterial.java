@@ -1,9 +1,9 @@
-package com.codetaylor.mc.artisantools.api.tool;
+package com.codetaylor.mc.artisantools.api;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 
-public class CustomMaterial
+public class CustomToolMaterial
     implements IItemTier {
 
   private final String name;
@@ -17,7 +17,7 @@ public class CustomMaterial
   private final String ingredientString;
   private final boolean isShiny;
 
-  public CustomMaterial(
+  public CustomToolMaterial(
       String name, String langKey,
       int maxUses,
       float efficiency,

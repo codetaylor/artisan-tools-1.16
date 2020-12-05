@@ -1,19 +1,19 @@
 package com.codetaylor.mc.artisantools.material;
 
-import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
-import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
+import com.codetaylor.mc.artisantools.api.ICustomToolMaterial;
 
 import java.awt.*;
 
 public class CustomMaterialConverter {
 
-  public CustomMaterial convert(ICustomToolMaterial data) {
+  public CustomToolMaterial convert(ICustomToolMaterial data) {
 
     // Convert color
     Integer colorInt = Integer.decode("0x" + data.getColor());
     int color = new Color(colorInt).getRGB();
 
-    return new CustomMaterial(
+    return new CustomToolMaterial(
         data.getName(),
         data.getLangKey(),
         data.getMaxUses(),

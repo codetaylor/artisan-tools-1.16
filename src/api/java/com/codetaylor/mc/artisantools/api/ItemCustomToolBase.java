@@ -1,7 +1,5 @@
-package com.codetaylor.mc.artisantools.api.tool;
+package com.codetaylor.mc.artisantools.api;
 
-import com.codetaylor.mc.artisantools.ArtisanToolsMod;
-import com.codetaylor.mc.artisantools.ArtisanToolsModConfig;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -27,19 +25,19 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Set;
 
-public abstract class ItemWorktableToolBase
+public abstract class ItemCustomToolBase
     extends ToolItem {
 
   public static final String TOOLTIP_DURABILITY = "tooltip.artisantools.durability";
 
   protected String typeName;
-  protected CustomMaterial material;
+  protected CustomToolMaterial material;
   protected Ingredient repairIngredient;
   protected String translationKey;
 
-  private static final Logger LOGGER = LogManager.getLogger(ItemWorktableToolBase.class);
+  private static final Logger LOGGER = LogManager.getLogger(ItemCustomToolBase.class);
 
-  public ItemWorktableToolBase(CustomMaterial material, Set<Block> effectiveBlocks, String typeName, Item.Properties properties) {
+  public ItemCustomToolBase(CustomToolMaterial material, Set<Block> effectiveBlocks, String typeName, Item.Properties properties) {
 
     super(0, 0, material, effectiveBlocks, properties);
     this.typeName = typeName;
@@ -49,14 +47,14 @@ public abstract class ItemWorktableToolBase
   @Override
   public boolean isEnchantable(@Nonnull ItemStack stack) {
 
-    return ArtisanToolsModConfig.CONFIG.enableToolEnchanting.get();
+    return Reference.Config.enableToolEnchanting;
   }
 
   @Override
   public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 
-    return ArtisanToolsModConfig.CONFIG.enableToolRepair.get()
-        && ArtisanToolsModConfig.CONFIG.allowToolEnchantment(enchantment)
+    return Reference.Config.enableToolRepair
+        && Reference.Config.allowEnchantment(enchantment)
         && super.canApplyAtEnchantingTable(stack, enchantment);
   }
 
@@ -102,15 +100,15 @@ public abstract class ItemWorktableToolBase
     }
   }
 
-  public CustomMaterial getMaterial() {
+  public CustomToolMaterial getMaterial() {
 
     return this.material;
   }
 
   @Override
-  public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
+  public boolean getIsRepairable(@Nonnull ItemStack toRepair, @Nonnull ItemStack repair) {
 
-    if (!ArtisanToolsModConfig.CONFIG.enableToolRepair.get()) {
+    if (!Reference.Config.enableToolRepair) {
       return false;
     }
 
@@ -127,8 +125,8 @@ public abstract class ItemWorktableToolBase
 
     Item item = stack.getItem();
 
-    if (item instanceof ItemWorktableToolBase) {
-      CustomMaterial material = ((ItemWorktableToolBase) item).getMaterial();
+    if (item instanceof ItemCustomToolBase) {
+      CustomToolMaterial material = ((ItemCustomToolBase) item).getMaterial();
       TranslationTextComponent translationTextComponent = new TranslationTextComponent(material.getLangKey());
       return new TranslationTextComponent(this.getTranslationKey(stack), translationTextComponent);
     }
@@ -143,7 +141,7 @@ public abstract class ItemWorktableToolBase
     // item.artisantools.artisans.cutters.name=Artisan's %s Cutters
 
     if (this.translationKey == null) {
-      this.translationKey = "item." + ArtisanToolsMod.MOD_ID + "." + this.typeName.replaceAll("_", ".") + ".name";
+      this.translationKey = "item." + Reference.MOD_ID + "." + this.typeName.replaceAll("_", ".") + ".name";
     }
 
     return this.translationKey;
@@ -155,9 +153,9 @@ public abstract class ItemWorktableToolBase
 
     super.addInformation(stack, worldIn, tooltip, flag);
 
-    if (ArtisanToolsModConfig.CONFIG.enableDurabilityTooltip.get()) {
+    if (Reference.Config.enableDurabilityTooltip) {
       tooltip.add(new StringTextComponent(TextFormatting.GRAY + net.minecraft.client.resources.I18n.format(
-          ItemWorktableToolBase.TOOLTIP_DURABILITY,
+          ItemCustomToolBase.TOOLTIP_DURABILITY,
           stack.getMaxDamage() - stack.getDamage(),
           stack.getMaxDamage()
       )));

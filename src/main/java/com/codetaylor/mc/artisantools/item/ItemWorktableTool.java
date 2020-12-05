@@ -1,17 +1,17 @@
 package com.codetaylor.mc.artisantools.item;
 
-import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
-import com.codetaylor.mc.artisantools.api.tool.ItemWorktableToolBase;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
+import com.codetaylor.mc.artisantools.api.ItemCustomToolBase;
 import net.minecraft.item.Item;
 
 import java.util.Collections;
 
 public class ItemWorktableTool
-    extends ItemWorktableToolBase {
+    extends ItemCustomToolBase {
 
   public ItemWorktableTool(
       String typeName,
-      CustomMaterial material,
+      CustomToolMaterial material,
       Item.Properties properties
   ) {
 

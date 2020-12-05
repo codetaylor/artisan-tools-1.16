@@ -12,6 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 
 // -----------
 
+apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
 apply from: 'project.gradle'
@@ -38,37 +39,29 @@ println("- Mappings: " + project.ext.mappings.channel + " " + project.ext.mappin
 println("-------------------------------------------------------------")
 println()
 
-compileJava.doFirst {
-    project.sourceSets.main.java.srcDirs.each { dir ->
-        copy {
-            from dir
-            into "${project.buildDir}/modifiedSrc"
-            include "**/*.java"
-            filter {
-                it.replaceAll('@@VERSION@@', project.version)
-            }
-            project.ext.replace.each{entry ->
-                filter {
-                    it.replaceAll(entry.key, entry.value)
-                }
-            }
-            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        }
-        println "   [OK] Preprocessed [${dir}]"
-    }
-}
-compileJava.doFirst {
-    source = "${project.buildDir}/modifiedSrc"
-    classpath = project.sourceSets.main.compileClasspath
-    //destinationDir = file("${project.buildDir}/classes")
-}
-compileJava.doLast {
-    println "   [OK] Compiled [${project.name}]"
-}
-
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
+}
+
+configurations {
+    apiCompile.extendsFrom(compile)
+}
+
+task replaceResources(type: Copy) {
+    outputs.upToDateWhen { false }
+    from(sourceSets.main.resources.srcDirs) {
+        include "META-INF/mods.toml"
+        expand 'version': version, 'minecraft_version': project.ext.minecraft.version_range, 'forge_version': project.ext.forge.version_range
+    }
+    into "$buildDir/resources/main/"
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META-INF/mods.toml'
+    }
+    finalizedBy replaceResources
 }
 
 minecraft {
@@ -84,6 +77,7 @@ minecraft {
             mods {
                 artisantools {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -96,6 +90,7 @@ minecraft {
             mods {
                 artisantools {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -109,6 +104,7 @@ minecraft {
             mods {
                 artisantools {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -117,4 +113,47 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+jar {
+    from sourceSets.main.output.classesDirs
+    from sourceSets.api.output.classesDirs
+    from sourceSets.main.output.resourcesDir
+    from sourceSets.api.output.resourcesDir
+}
+
 jar.finalizedBy('reobfJar')
+
+task sourcesJar(type: Jar) {
+    classifier = "sources"
+    from sourceSets.main.allJava
+    from sourceSets.api.allJava
+}
+
+task apiJar(type: Jar) {
+    classifier = "api"
+    from sourceSets.api.output
+
+    // TODO: when FG bug is fixed, remove allJava from the api jar.
+    // https://github.com/MinecraftForge/ForgeGradle/issues/369
+    // Gradle should be able to pull them from the -sources jar.
+    from sourceSets.api.allJava
+}
+
+artifacts {
+    archives sourcesJar
+    archives apiJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact apiJar
+            artifact sourcesJar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/maven"
+        }
+    }
+}

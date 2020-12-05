@@ -2,7 +2,7 @@ package com.codetaylor.mc.artisantools.event;
 
 import com.codetaylor.mc.artisantools.ArtisanToolsMod;
 import com.codetaylor.mc.artisantools.ArtisanToolsModConfig;
-import com.codetaylor.mc.artisantools.api.tool.*;
+import com.codetaylor.mc.artisantools.api.*;
 import com.codetaylor.mc.artisantools.item.ItemWorktableTool;
 import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
 import com.codetaylor.mc.artisantools.material.CustomMaterialConverter;
@@ -19,19 +19,19 @@ import java.util.List;
 
 public class ItemRegistrationEventHandler {
 
-  private final List<CustomMaterial> materialList;
+  private final List<CustomToolMaterial> materialList;
   private final List<CustomToolMaterialRegistrationEntry> customMaterialList;
   private final GenerationInhibitor generationInhibitor;
   private final List<String> enabledToolTypeList;
-  private final List<ItemWorktableToolBase> registeredToolList;
+  private final List<ItemCustomToolBase> registeredToolList;
   private final CustomMaterialConverter customMaterialConverter;
 
   public ItemRegistrationEventHandler(
-      List<CustomMaterial> materialList,
+      List<CustomToolMaterial> materialList,
       List<CustomToolMaterialRegistrationEntry> customMaterialList,
       GenerationInhibitor generationInhibitor,
       List<String> enabledToolTypeList,
-      List<ItemWorktableToolBase> registeredToolList,
+      List<ItemCustomToolBase> registeredToolList,
       CustomMaterialConverter customMaterialConverter
   ) {
 
@@ -67,26 +67,26 @@ public class ItemRegistrationEventHandler {
 
     for (String typeName : this.enabledToolTypeList) {
 
-      for (CustomMaterial material : this.materialList) {
+      for (CustomToolMaterial material : this.materialList) {
         String materialName = material.getName();
         Item.Properties properties = new Item.Properties().maxStackSize(1).group(itemGroup);
-        ItemWorktableToolBase item = new ItemWorktableTool(typeName, material, properties);
+        ItemCustomToolBase item = new ItemWorktableTool(typeName, material, properties);
         this.registerTool(event.getRegistry(), typeName, materialName, item);
       }
 
       for (CustomToolMaterialRegistrationEntry entry : customMaterialList) {
         ICustomToolMaterial material = entry.getMaterial();
         ICustomToolProvider<?> provider = entry.getProvider();
-        CustomMaterial customMaterial = this.customMaterialConverter.convert(material);
+        CustomToolMaterial customToolMaterial = this.customMaterialConverter.convert(material);
         Item.Properties properties = new Item.Properties().maxStackSize(1).group(itemGroup);
-        ItemWorktableToolBase item = provider.get(typeName, customMaterial, properties);
-        String materialName = customMaterial.getName();
+        ItemCustomToolBase item = provider.get(typeName, customToolMaterial, properties);
+        String materialName = customToolMaterial.getName();
         this.registerTool(event.getRegistry(), typeName, materialName, item);
       }
     }
   }
 
-  private void registerTool(IForgeRegistry<Item> registry, String typeName, String materialName, ItemWorktableToolBase item) {
+  private void registerTool(IForgeRegistry<Item> registry, String typeName, String materialName, ItemCustomToolBase item) {
 
     this.registeredToolList.add(item);
     ResourceLocation registryName = new ResourceLocation(ArtisanToolsMod.MOD_ID, typeName + "_" + materialName);

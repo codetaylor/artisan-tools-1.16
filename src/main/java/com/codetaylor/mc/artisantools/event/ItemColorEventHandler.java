@@ -1,6 +1,6 @@
 package com.codetaylor.mc.artisantools.event;
 
-import com.codetaylor.mc.artisantools.api.tool.ItemWorktableToolBase;
+import com.codetaylor.mc.artisantools.api.ItemCustomToolBase;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -10,9 +10,9 @@ import java.util.List;
 
 public class ItemColorEventHandler {
 
-  private final List<ItemWorktableToolBase> registeredToolList;
+  private final List<ItemCustomToolBase> registeredToolList;
 
-  public ItemColorEventHandler(List<ItemWorktableToolBase> registeredToolList) {
+  public ItemColorEventHandler(List<ItemCustomToolBase> registeredToolList) {
 
     this.registeredToolList = registeredToolList;
   }
@@ -32,7 +32,7 @@ public class ItemColorEventHandler {
 
     itemColors.register(
         (itemStack, tintIndex) -> (tintIndex == 1)
-            ? ((ItemWorktableToolBase) itemStack.getItem()).getMaterial().getColor()
+            ? ((ItemCustomToolBase) itemStack.getItem()).getMaterial().getColor()
             : 0xFFFFFF,
         this.registeredToolList.stream()
             .map(itemWorktableToolBase -> (IItemProvider) () -> itemWorktableToolBase)

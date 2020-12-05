@@ -1,6 +1,6 @@
 package com.codetaylor.mc.artisantools.material;
 
-import com.codetaylor.mc.artisantools.api.tool.ICustomToolMaterial;
+import com.codetaylor.mc.artisantools.api.ICustomToolMaterial;
 
 public class CustomMaterialValidator {
 

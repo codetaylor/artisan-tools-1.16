@@ -1,13 +1,13 @@
 package com.codetaylor.mc.artisantools;
 
-import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
-import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
-import com.codetaylor.mc.artisantools.api.tool.ItemWorktableToolBase;
-import com.codetaylor.mc.artisantools.api.tool.EnumToolType;
+import com.codetaylor.mc.artisantools.api.*;
 import com.codetaylor.mc.artisantools.event.ConstructModEventHandler;
 import com.codetaylor.mc.artisantools.event.ItemColorEventHandler;
 import com.codetaylor.mc.artisantools.event.ItemRegistrationEventHandler;
-import com.codetaylor.mc.artisantools.lib.*;
+import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
+import com.codetaylor.mc.artisantools.lib.MultiPathCreator;
+import com.codetaylor.mc.artisantools.lib.PathCreator;
+import com.codetaylor.mc.artisantools.lib.PathRemover;
 import com.codetaylor.mc.artisantools.material.*;
 import com.codetaylor.mc.artisantools.pack.*;
 import com.codetaylor.mc.artisantools.pack.injector.DataPackFinderInjector;
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @Mod(ArtisanToolsMod.MOD_ID)
 public class ArtisanToolsMod {
 
-  public static final String MOD_ID = "artisantools";
+  public static final String MOD_ID = Reference.MOD_ID;
   public static final Logger LOGGER = LogManager.getLogger();
 
   public static final Path CONFIG_PATH = FMLPaths.CONFIGDIR.get();
@@ -71,9 +71,9 @@ public class ArtisanToolsMod {
     modLoadingContext.registerConfig(ModConfig.Type.COMMON, ArtisanToolsModConfig.CONFIG_SPEC, MOD_ID + "/artisantools.toml");
     ArtisanToolsModConfig.loadConfig(ArtisanToolsModConfig.CONFIG_SPEC, MOD_CONFIG_PATH.resolve("artisantools.toml"));
 
-    List<CustomMaterial> materialList = new ArrayList<>();
+    List<CustomToolMaterial> materialList = new ArrayList<>();
     List<CustomToolMaterialRegistrationEntry> customMaterialList = new ArrayList<>();
-    List<ItemWorktableToolBase> registeredToolList = new ArrayList<>();
+    List<ItemCustomToolBase> registeredToolList = new ArrayList<>();
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     Path configPath = FMLPaths.CONFIGDIR.get().resolve(MOD_ID);
     ConfigFilePathSupplier customMaterialPathSupplier = new ConfigFilePathSupplier(configPath, TOOL_MATERIALS_CUSTOM_JSON);

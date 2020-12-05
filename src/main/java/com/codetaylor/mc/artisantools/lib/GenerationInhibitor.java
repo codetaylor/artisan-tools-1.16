@@ -1,18 +1,18 @@
 package com.codetaylor.mc.artisantools.lib;
 
-import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
 
 import java.util.List;
 
 public class GenerationInhibitor {
 
   private final boolean disableGeneration;
-  private final List<CustomMaterial> materialList;
+  private final List<CustomToolMaterial> materialList;
   private final List<? extends String> allowedToolTypeList;
 
   public GenerationInhibitor(
       boolean disableGeneration,
-      List<CustomMaterial> materialList,
+      List<CustomToolMaterial> materialList,
       List<? extends String> allowedToolTypeList
   ) {
 

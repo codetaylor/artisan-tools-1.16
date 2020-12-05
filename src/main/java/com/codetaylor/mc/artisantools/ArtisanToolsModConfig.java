@@ -1,11 +1,12 @@
 package com.codetaylor.mc.artisantools;
 
-import com.codetaylor.mc.artisantools.api.tool.EnumToolType;
+import com.codetaylor.mc.artisantools.api.EnumToolType;
+import com.codetaylor.mc.artisantools.api.Reference;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.config.ModConfig;
 
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ public class ArtisanToolsModConfig {
 
     configData.load();
     spec.setConfig(configData);
+    ArtisanToolsModConfig.bake();
   }
 
   public static ForgeConfigSpec CONFIG_SPEC;
@@ -33,6 +35,22 @@ public class ArtisanToolsModConfig {
     ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
     CONFIG = new Config(builder);
     CONFIG_SPEC = builder.build();
+  }
+
+  @SubscribeEvent
+  public static void onModConfigEvent(final ModConfig.ModConfigEvent configEvent) {
+
+    if (configEvent.getConfig().getSpec() == CONFIG_SPEC) {
+      ArtisanToolsModConfig.bake();
+    }
+  }
+
+  private static void bake() {
+
+    Reference.Config.enableDurabilityTooltip = CONFIG.enableDurabilityTooltip.get();
+    Reference.Config.enableToolEnchanting = CONFIG.enableToolEnchanting.get();
+    Reference.Config.enableToolRepair = CONFIG.enableToolRepair.get();
+    Reference.Config.allowedEnchants = CONFIG.allowedEnchants.get();
   }
 
   public static class Config {
@@ -121,16 +139,5 @@ public class ArtisanToolsModConfig {
 
     }
 
-    public boolean allowToolEnchantment(Enchantment enchantment) {
-
-      ResourceLocation resourceLocation = enchantment.getRegistryName();
-
-      if (resourceLocation == null) {
-        return false;
-      }
-
-      String resourceLocationString = resourceLocation.toString();
-      return this.allowedEnchants.get().contains(resourceLocationString);
-    }
   }
 }

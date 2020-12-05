@@ -1,12 +1,12 @@
-package com.codetaylor.mc.artisantools.api.tool.event;
+package com.codetaylor.mc.artisantools.api;
 
-import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterialRegistrationEntry;
 import net.minecraftforge.eventbus.api.Event;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtisanCustomToolMaterialRegistrationEvent
+public class CustomToolMaterialRegistrationEvent
     extends Event {
 
   private List<CustomToolMaterialRegistrationEntry> materialList = new ArrayList<>();

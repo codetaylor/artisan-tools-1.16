@@ -1,6 +1,6 @@
 package com.codetaylor.mc.artisantools.material;
 
-import com.codetaylor.mc.artisantools.api.tool.CustomMaterial;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
 import com.codetaylor.mc.artisantools.lib.FileHelper;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.Logger;
@@ -14,10 +14,10 @@ public class MaterialFileReader {
 
   private final Gson gson;
   private final ConfigFilePathSupplier customPathSupplier;
-  private final List<CustomMaterial> materialList;
+  private final List<CustomToolMaterial> materialList;
   private final Logger logger;
 
-  public MaterialFileReader(Gson gson, ConfigFilePathSupplier customPathSupplier, List<CustomMaterial> materialList, Logger logger) {
+  public MaterialFileReader(Gson gson, ConfigFilePathSupplier customPathSupplier, List<CustomToolMaterial> materialList, Logger logger) {
 
     this.gson = gson;
     this.customPathSupplier = customPathSupplier;

@@ -1,7 +1,7 @@
 package com.codetaylor.mc.artisantools.material;
 
-import com.codetaylor.mc.artisantools.api.tool.CustomToolMaterialRegistrationEntry;
-import com.codetaylor.mc.artisantools.api.tool.event.ArtisanCustomToolMaterialRegistrationEvent;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterialRegistrationEntry;
+import com.codetaylor.mc.artisantools.api.CustomToolMaterialRegistrationEvent;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class CustomMaterialListPopulator {
 
   public void populate() {
 
-    ArtisanCustomToolMaterialRegistrationEvent artisanEvent = new ArtisanCustomToolMaterialRegistrationEvent();
+    CustomToolMaterialRegistrationEvent artisanEvent = new CustomToolMaterialRegistrationEvent();
     MinecraftForge.EVENT_BUS.post(artisanEvent);
     this.customMaterialList.addAll(artisanEvent.getMaterialList());
   }
