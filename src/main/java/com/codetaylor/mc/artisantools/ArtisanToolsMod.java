@@ -1,38 +1,19 @@
 package com.codetaylor.mc.artisantools;
 
-import com.codetaylor.mc.artisantools.api.*;
-import com.codetaylor.mc.artisantools.event.ConstructModEventHandler;
-import com.codetaylor.mc.artisantools.event.ItemColorEventHandler;
-import com.codetaylor.mc.artisantools.event.ItemRegistrationEventHandler;
-import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
-import com.codetaylor.mc.artisantools.lib.MultiPathCreator;
-import com.codetaylor.mc.artisantools.lib.PathCreator;
-import com.codetaylor.mc.artisantools.lib.PathRemover;
-import com.codetaylor.mc.artisantools.material.*;
-import com.codetaylor.mc.artisantools.pack.*;
-import com.codetaylor.mc.artisantools.pack.injector.DataPackFinderInjector;
-import com.codetaylor.mc.artisantools.pack.injector.ResourcePackFinderInjector;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.codetaylor.mc.artisantools.api.Reference;
+import com.codetaylor.mc.artisantools.client.ClientProxy;
+import com.codetaylor.mc.artisantools.common.CommonProxy;
+import com.codetaylor.mc.artisantools.common.pack.injector.DataPackFinderInjector;
 import net.minecraft.resources.ResourcePackList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Mod(ArtisanToolsMod.MOD_ID)
 public class ArtisanToolsMod {
@@ -55,171 +36,15 @@ public class ArtisanToolsMod {
   public static final Path GENERATED_DATA_PACK_TAG_ITEM_TYPE_PATH = GENERATED_DATA_PACK_PATH.resolve("data/artisantools/tags/items/type");
   public static final Path GENERATED_DATA_PACK_TAG_ITEM_MATERIAL_PATH = GENERATED_DATA_PACK_PATH.resolve("data/artisantools/tags/items/material");
 
-  private static final String TOOL_MATERIALS_CUSTOM_JSON = "tool.materials.custom.json";
-  private static final String TOOL_MATERIALS_GENERATED_JSON = "tool.materials.generated.json";
+  public static final String TOOL_MATERIALS_CUSTOM_JSON = "tool.materials.custom.json";
+  public static final String TOOL_MATERIALS_GENERATED_JSON = "tool.materials.generated.json";
 
   public ArtisanToolsMod() {
 
-    try {
-      Files.createDirectories(GENERATED_PATH);
-
-    } catch (IOException e) {
-      LOGGER.error("Error creating folder: " + GENERATED_PATH, e);
-    }
-
-    ModLoadingContext modLoadingContext = ModLoadingContext.get();
-    modLoadingContext.registerConfig(ModConfig.Type.COMMON, ArtisanToolsModConfig.CONFIG_SPEC, MOD_ID + "/artisantools.toml");
-    ArtisanToolsModConfig.loadConfig(ArtisanToolsModConfig.CONFIG_SPEC, MOD_CONFIG_PATH.resolve("artisantools.toml"));
-
-    List<CustomToolMaterial> materialList = new ArrayList<>();
-    List<CustomToolMaterialRegistrationEntry> customMaterialList = new ArrayList<>();
-    List<ItemCustomToolBase> registeredToolList = new ArrayList<>();
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    Path configPath = FMLPaths.CONFIGDIR.get().resolve(MOD_ID);
-    ConfigFilePathSupplier customMaterialPathSupplier = new ConfigFilePathSupplier(configPath, TOOL_MATERIALS_CUSTOM_JSON);
-
-    List<? extends String> allowedToolTypeList = ArtisanToolsModConfig.CONFIG.enabledToolTypes.get();
-    boolean disableGeneration = ArtisanToolsModConfig.CONFIG.disableGeneration.get();
-    boolean enableCompression = ArtisanToolsModConfig.CONFIG.enableCompression.get();
-
-    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-    GenerationInhibitor generationInhibitor = new GenerationInhibitor(
-        disableGeneration,
-        materialList,
-        allowedToolTypeList
-    );
-
-    List<String> enabledToolTypeList = Arrays.stream(EnumToolType.values())
-        .map(EnumToolType::getName)
-        .filter(allowedToolTypeList::contains)
-        .collect(Collectors.toList());
-
-    modEventBus.register(new ConstructModEventHandler(
-        new MaterialFileGenerator(
-            gson,
-            new ConfigFilePathSupplier(
-                configPath,
-                TOOL_MATERIALS_GENERATED_JSON
-            ),
-            customMaterialPathSupplier,
-            LOGGER
-        ),
-        new MaterialFileReader(
-            gson,
-            customMaterialPathSupplier,
-            materialList,
-            LOGGER
-        ),
-        new CustomMaterialListPopulator(
-            customMaterialList
-        ),
-        new GeneratedPackRemover(
-            generationInhibitor,
-            new PathRemover(
-                GENERATED_PATH,
-                LOGGER
-            )
-        ),
-        new PackGenerator(
-            new PathCreator(
-                GENERATED_RESOURCE_PACK_MODEL_PATH,
-                LOGGER
-            ),
-            new PackMetaWriter(
-                gson,
-                GENERATED_RESOURCE_PACK_PATH,
-                "Resource pack generated for Artisan Tools.",
-                LOGGER
-            ),
-            new ModelGenerator(
-                gson,
-                GENERATED_RESOURCE_PACK_MODEL_PATH,
-                materialList,
-                customMaterialList,
-                enabledToolTypeList,
-                LOGGER
-            ),
-            generationInhibitor,
-            enableCompression,
-            new FolderCompressor(
-                GENERATED_RESOURCE_PACK_PATH,
-                GENERATED_RESOURCE_PACK_ZIPPED_PATH,
-                LOGGER
-            ),
-            new PathRemover(
-                GENERATED_RESOURCE_PACK_PATH,
-                LOGGER
-            )
-        ),
-        new PackGenerator(
-            new MultiPathCreator(
-                new PathCreator(
-                    GENERATED_DATA_PACK_RECIPE_PATH,
-                    LOGGER
-                ),
-                new PathCreator(
-                    GENERATED_DATA_PACK_TAG_ITEM_TYPE_PATH,
-                    LOGGER
-                ),
-                new PathCreator(
-                    GENERATED_DATA_PACK_TAG_ITEM_MATERIAL_PATH,
-                    LOGGER
-                )
-            ),
-            new PackMetaWriter(
-                gson,
-                GENERATED_DATA_PACK_PATH,
-                "Data pack generated for Artisan Tools.",
-                LOGGER
-            ),
-            new MultiPackContentGenerator(
-                new RecipeGenerator(
-                    gson,
-                    GENERATED_DATA_PACK_RECIPE_PATH,
-                    materialList,
-                    customMaterialList,
-                    enabledToolTypeList,
-                    new RecipeTemplateFactory().create(),
-                    LOGGER
-                ),
-                new TagGenerator(
-                    gson,
-                    GENERATED_DATA_PACK_TAG_ITEM_PATH,
-                    materialList,
-                    customMaterialList,
-                    enabledToolTypeList,
-                    LOGGER
-                )
-            ),
-            generationInhibitor,
-            enableCompression,
-            new FolderCompressor(
-                GENERATED_DATA_PACK_PATH,
-                GENERATED_DATA_PACK_ZIPPED_PATH,
-                LOGGER
-            ),
-            new PathRemover(
-                GENERATED_DATA_PACK_PATH,
-                LOGGER
-            )
-        )
-    ));
-
-    modEventBus.register(new ItemColorEventHandler(
-        registeredToolList
-    ));
-
-    modEventBus.register(new ItemRegistrationEventHandler(
-        materialList,
-        customMaterialList,
-        generationInhibitor,
-        enabledToolTypeList,
-        registeredToolList,
-        new CustomMaterialConverter()
-    ));
-
-    DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ResourcePackFinderInjector.inject(GENERATED_PATH));
+    IProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    proxy.initialize();
+    proxy.registerModEventHandlers(FMLJavaModLoadingContext.get().getModEventBus());
+    proxy.registerForgeEventHandlers(MinecraftForge.EVENT_BUS);
   }
 
   @SuppressWarnings("unused")
