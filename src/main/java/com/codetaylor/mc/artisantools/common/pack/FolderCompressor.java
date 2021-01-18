@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.pack;
+package com.codetaylor.mc.artisantools.common.pack;
 
 import org.apache.logging.log4j.Logger;
 

@@ -1,6 +1,6 @@
-package com.codetaylor.mc.artisantools.pack.injector;
+package com.codetaylor.mc.artisantools.common.pack.injector;
 
-import com.codetaylor.mc.artisantools.pack.SinglePackFinder;
+import com.codetaylor.mc.artisantools.common.pack.SinglePackFinder;
 import net.minecraft.resources.ResourcePackList;
 
 import java.nio.file.Path;

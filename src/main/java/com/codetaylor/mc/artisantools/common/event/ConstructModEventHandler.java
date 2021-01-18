@@ -1,10 +1,10 @@
-package com.codetaylor.mc.artisantools.event;
+package com.codetaylor.mc.artisantools.common.event;
 
-import com.codetaylor.mc.artisantools.material.CustomMaterialListPopulator;
-import com.codetaylor.mc.artisantools.material.MaterialFileGenerator;
-import com.codetaylor.mc.artisantools.material.MaterialFileReader;
-import com.codetaylor.mc.artisantools.pack.GeneratedPackRemover;
-import com.codetaylor.mc.artisantools.pack.PackGenerator;
+import com.codetaylor.mc.artisantools.common.material.CustomMaterialListPopulator;
+import com.codetaylor.mc.artisantools.common.material.MaterialFileGenerator;
+import com.codetaylor.mc.artisantools.common.material.MaterialFileReader;
+import com.codetaylor.mc.artisantools.common.pack.GeneratedPackRemover;
+import com.codetaylor.mc.artisantools.common.pack.PackGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 

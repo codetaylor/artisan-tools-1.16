@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.material;
+package com.codetaylor.mc.artisantools.common.material;
 
 public class CustomMaterialValidationException
     extends Exception {

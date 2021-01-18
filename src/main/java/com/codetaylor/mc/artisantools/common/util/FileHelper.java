@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.lib;
+package com.codetaylor.mc.artisantools.common.util;
 
 import java.io.Closeable;
 import java.io.IOException;

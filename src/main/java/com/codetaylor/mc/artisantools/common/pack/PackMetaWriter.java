@@ -1,6 +1,6 @@
-package com.codetaylor.mc.artisantools.pack;
+package com.codetaylor.mc.artisantools.common.pack;
 
-import com.codetaylor.mc.artisantools.lib.FileHelper;
+import com.codetaylor.mc.artisantools.common.util.FileHelper;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.Logger;
 

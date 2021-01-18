@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.material;
+package com.codetaylor.mc.artisantools.common.material;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.material;
+package com.codetaylor.mc.artisantools.common.material;
 
 import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
 import com.codetaylor.mc.artisantools.api.ICustomToolMaterial;

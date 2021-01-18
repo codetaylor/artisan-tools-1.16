@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.event;
+package com.codetaylor.mc.artisantools.client.event;
 
 import com.codetaylor.mc.artisantools.api.ItemCustomToolBase;
 import net.minecraft.client.renderer.color.ItemColors;

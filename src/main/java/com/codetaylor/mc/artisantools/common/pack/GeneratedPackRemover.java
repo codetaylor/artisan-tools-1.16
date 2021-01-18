@@ -1,7 +1,7 @@
-package com.codetaylor.mc.artisantools.pack;
+package com.codetaylor.mc.artisantools.common.pack;
 
-import com.codetaylor.mc.artisantools.lib.GenerationInhibitor;
-import com.codetaylor.mc.artisantools.lib.PathRemover;
+import com.codetaylor.mc.artisantools.common.util.GenerationInhibitor;
+import com.codetaylor.mc.artisantools.common.util.PathRemover;
 
 public class GeneratedPackRemover {
 

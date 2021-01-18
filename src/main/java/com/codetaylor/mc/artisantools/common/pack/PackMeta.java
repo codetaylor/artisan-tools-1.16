@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.pack;
+package com.codetaylor.mc.artisantools.common.pack;
 
 public class PackMeta {
 

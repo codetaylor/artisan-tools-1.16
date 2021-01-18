@@ -1,4 +1,4 @@
-package com.codetaylor.mc.artisantools.lib;
+package com.codetaylor.mc.artisantools.common.util;
 
 public class MultiPathCreator
     implements IPathCreator {

@@ -1,6 +1,8 @@
-package com.codetaylor.mc.artisantools.pack;
+package com.codetaylor.mc.artisantools.common.pack;
 
-import com.codetaylor.mc.artisantools.lib.*;
+import com.codetaylor.mc.artisantools.common.util.GenerationInhibitor;
+import com.codetaylor.mc.artisantools.common.util.IPathCreator;
+import com.codetaylor.mc.artisantools.common.util.PathRemover;
 
 public class PackGenerator {
 
