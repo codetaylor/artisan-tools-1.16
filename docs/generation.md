@@ -1,4 +1,4 @@
-# Materials
+# Generation
 
 During each game load, Artisan Tools will generate and load a data pack and a resource pack in the following location:
 
