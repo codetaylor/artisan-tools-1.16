@@ -1,11 +1,11 @@
-package com.codetaylor.mc.artisantools.common.pack;
+package com.codetaylor.mc.artisantools.common.recipe;
 
-public class RecipeTemplate {
+public class DataRecipeTemplate {
 
   private final String[] pattern;
   private final String[] key;
 
-  public RecipeTemplate(String[] pattern, String[] key) {
+  public DataRecipeTemplate(String[] pattern, String[] key) {
 
     this.pattern = pattern;
     this.key = key;

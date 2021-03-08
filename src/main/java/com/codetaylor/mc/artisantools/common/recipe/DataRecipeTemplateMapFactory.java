@@ -1,19 +1,19 @@
-package com.codetaylor.mc.artisantools.common.pack;
+package com.codetaylor.mc.artisantools.common.recipe;
 
 import com.codetaylor.mc.artisantools.api.EnumToolType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class RecipeTemplateFactory {
+public class DataRecipeTemplateMapFactory {
 
-  public Map<String, RecipeTemplate> create() {
+  public DataRecipeTemplateMap create() {
 
-    Map<String, RecipeTemplate> map = new HashMap<>();
+    Map<String, DataRecipeTemplate> map = new HashMap<>();
 
     map.put(
         EnumToolType.BLACKSMITHS_CUTTERS.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 ". .",
                 " x ",
@@ -28,7 +28,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.BLACKSMITHS_HAMMER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " .x",
                 " /.",
@@ -43,7 +43,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.CARPENTERS_HAMMER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " ..",
                 " /x",
@@ -58,7 +58,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.CARPENTERS_HANDSAW.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " ./",
                 "./ ",
@@ -72,7 +72,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.JEWELERS_GEMCUTTER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  x",
                 " ..",
@@ -87,7 +87,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.JEWELERS_PLIERS.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 ". .",
                 "/x/",
@@ -102,7 +102,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.MASONS_CHISEL.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 " . ",
@@ -116,7 +116,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.MASONS_TROWEL.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 " /.",
@@ -130,7 +130,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.TAILORS_NEEDLE.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 " .x",
@@ -145,7 +145,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.TAILORS_SHEARS.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " . ",
                 "/x.",
@@ -160,7 +160,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.ENGINEERS_DRIVER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 " . ",
@@ -175,7 +175,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.ENGINEERS_SPANNER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " . ",
                 " /.",
@@ -189,7 +189,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.MAGES_ATHAME.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 "x. ",
@@ -205,7 +205,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.MAGES_GRIMOIRE.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " . ",
                 "xbx",
@@ -220,7 +220,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.SCRIBES_COMPASS.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " / ",
                 "/x/",
@@ -235,7 +235,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.SCRIBES_QUILL.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  f",
                 " .x",
@@ -250,7 +250,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.CHEMISTS_BURNER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " . ",
                 " . ",
@@ -264,7 +264,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.CHEMISTS_BEAKER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 ".g.",
                 " g "
@@ -277,7 +277,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.FARMERS_LENS.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 ".g.",
                 "/  "
@@ -291,7 +291,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.FARMERS_SIFTER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "/./",
                 "/x/",
@@ -306,7 +306,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.CHEFS_CUTTING_BOARD.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  /",
                 " . ",
@@ -321,7 +321,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.CHEFS_PAN.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "/  ",
                 "c.."
@@ -335,7 +335,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.UNIVERSAL_MORTAR.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  /",
                 ".f ",
@@ -350,7 +350,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.UNIVERSAL_KNIFE.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 "x. ",
@@ -365,7 +365,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.TANNERS_PUNCH.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 " /x",
@@ -380,7 +380,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.TANNERS_GROOVER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 ". ",
                 "/.",
@@ -395,7 +395,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.POTTERS_CARVER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 "x/x",
@@ -410,7 +410,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.POTTERS_RAZOR.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " . ",
                 "x. ",
@@ -425,7 +425,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.UNIVERSAL_HATCHET.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " . ",
                 "./ ",
@@ -439,7 +439,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.UNIVERSAL_FILE.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 " /.",
                 "/. ",
@@ -453,7 +453,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.DESIGNERS_PENCIL.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  c",
                 "./.",
@@ -468,7 +468,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.DESIGNERS_TSQUARE.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "///",
                 " . ",
@@ -482,7 +482,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.UNIVERSAL_SOLDERER.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  .",
                 " . ",
@@ -496,7 +496,7 @@ public class RecipeTemplateFactory {
 
     map.put(
         EnumToolType.UNIVERSAL_PAINTBRUSH.getName(),
-        new RecipeTemplate(
+        new DataRecipeTemplate(
             new String[]{
                 "  w",
                 ".. ",
@@ -509,6 +509,8 @@ public class RecipeTemplateFactory {
         )
     );
 
-    return map;
+    DataRecipeTemplateMap result = new DataRecipeTemplateMap();
+    result.recipes = map;
+    return result;
   }
 }

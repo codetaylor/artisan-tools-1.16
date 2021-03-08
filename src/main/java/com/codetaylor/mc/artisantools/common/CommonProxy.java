@@ -11,6 +11,7 @@ import com.codetaylor.mc.artisantools.common.event.ConstructModEventHandler;
 import com.codetaylor.mc.artisantools.common.event.ItemRegistrationEventHandler;
 import com.codetaylor.mc.artisantools.common.material.*;
 import com.codetaylor.mc.artisantools.common.pack.*;
+import com.codetaylor.mc.artisantools.common.recipe.*;
 import com.codetaylor.mc.artisantools.common.util.GenerationInhibitor;
 import com.codetaylor.mc.artisantools.common.util.MultiPathCreator;
 import com.codetaylor.mc.artisantools.common.util.PathCreator;
@@ -25,9 +26,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CommonProxy
@@ -59,6 +58,9 @@ public class CommonProxy
     List<CustomToolMaterial> materialList = new ArrayList<>();
     List<CustomToolMaterialRegistrationEntry> customMaterialList = new ArrayList<>();
     this.registeredToolList = new ArrayList<>();
+
+    ConfigFilePathSupplier customRecipePathSupplier = new ConfigFilePathSupplier(configPath, ArtisanToolsMod.TOOL_RECIPES_CUSTOM_JSON);
+    Map<String, DataRecipeTemplate> recipeMap = new HashMap<>();
 
     List<? extends String> allowedToolTypeList = ArtisanToolsModConfig.CONFIG.enabledToolTypes.get();
     boolean disableGeneration = ArtisanToolsModConfig.CONFIG.disableGeneration.get();
@@ -99,6 +101,26 @@ public class CommonProxy
         ),
         new CustomMaterialListPopulator(
             customMaterialList
+        ),
+        new JsonConfigFileGenerator<>(
+            gson,
+            new ConfigFilePathSupplier(
+                configPath,
+                ArtisanToolsMod.TOOL_RECIPES_GENERATED_JSON
+            ),
+            customRecipePathSupplier,
+            () -> new DataRecipeTemplateMapFactory().create(),
+            ArtisanToolsMod.LOGGER
+        ),
+        new JsonConfigFileReader<>(
+            gson,
+            customRecipePathSupplier,
+            DataRecipeTemplateMap.class,
+            dataRecipeTemplateMap -> recipeMap.putAll(
+                new RecipeTemplateMapConverter(
+                    new RecipeTemplateValidator()
+                ).convert(dataRecipeTemplateMap, ArtisanToolsMod.LOGGER)),
+            ArtisanToolsMod.LOGGER
         ),
         new GeneratedPackRemover(
             generationInhibitor,
@@ -166,7 +188,7 @@ public class CommonProxy
                     materialList,
                     customMaterialList,
                     enabledToolTypeList,
-                    new RecipeTemplateFactory().create(),
+                    recipeMap,
                     ArtisanToolsMod.LOGGER
                 ),
                 new TagGenerator(

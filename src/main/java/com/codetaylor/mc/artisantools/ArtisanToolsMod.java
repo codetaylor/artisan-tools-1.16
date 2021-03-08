@@ -39,6 +39,9 @@ public class ArtisanToolsMod {
   public static final String TOOL_MATERIALS_CUSTOM_JSON = "tool.materials.custom.json";
   public static final String TOOL_MATERIALS_GENERATED_JSON = "tool.materials.generated.json";
 
+  public static final String TOOL_RECIPES_CUSTOM_JSON = "tool.recipes.custom.json";
+  public static final String TOOL_RECIPES_GENERATED_JSON = "tool.recipes.generated.json";
+
   public ArtisanToolsMod() {
 
     IProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);

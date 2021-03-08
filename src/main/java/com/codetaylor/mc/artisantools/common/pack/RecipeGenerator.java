@@ -4,6 +4,8 @@ import com.codetaylor.mc.artisantools.ArtisanToolsMod;
 import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
 import com.codetaylor.mc.artisantools.api.CustomToolMaterialRegistrationEntry;
 import com.codetaylor.mc.artisantools.api.ICustomToolMaterial;
+import com.codetaylor.mc.artisantools.common.pack.IPackContentGenerator;
+import com.codetaylor.mc.artisantools.common.recipe.DataRecipeTemplate;
 import com.codetaylor.mc.artisantools.common.util.FileHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -25,7 +27,7 @@ public class RecipeGenerator
   private final List<CustomToolMaterial> materialList;
   private final List<CustomToolMaterialRegistrationEntry> customMaterialList;
   private final List<String> enabledToolTypeList;
-  private final Map<String, RecipeTemplate> recipeTemplateMap;
+  private final Map<String, DataRecipeTemplate> recipeTemplateMap;
   private final Logger logger;
 
   public RecipeGenerator(
@@ -33,7 +35,7 @@ public class RecipeGenerator
       Path path, List<CustomToolMaterial> materialList,
       List<CustomToolMaterialRegistrationEntry> customMaterialList,
       List<String> enabledToolTypeList,
-      Map<String, RecipeTemplate> recipeTemplateMap,
+      Map<String, DataRecipeTemplate> recipeTemplateMap,
       Logger logger
   ) {
 
@@ -51,7 +53,7 @@ public class RecipeGenerator
 
     for (String typeName : this.enabledToolTypeList) {
 
-      RecipeTemplate recipeTemplate = this.recipeTemplateMap.get(typeName);
+      DataRecipeTemplate recipeTemplate = this.recipeTemplateMap.get(typeName);
 
       if (recipeTemplate == null) {
         this.logger.error("Missing recipe template for type: " + typeName);
@@ -104,7 +106,7 @@ public class RecipeGenerator
     }
   }
 
-  private JsonObject createJsonObject(String typeName, String materialName, String ingredientString, RecipeTemplate recipeTemplate) {
+  private JsonObject createJsonObject(String typeName, String materialName, String ingredientString, DataRecipeTemplate recipeTemplate) {
 
     JsonObject root = new JsonObject();
     root.addProperty("type", "minecraft:crafting_shaped");

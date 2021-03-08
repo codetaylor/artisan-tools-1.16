@@ -9,16 +9,16 @@ import java.util.List;
 
 public class CustomMaterialListConverter {
 
-  private final CustomMaterialValidator customMaterialValidator;
-  private final CustomMaterialConverter customMaterialConverter;
+  private final CustomMaterialValidator validator;
+  private final CustomMaterialConverter converter;
 
   public CustomMaterialListConverter(
-      CustomMaterialValidator customMaterialValidator,
-      CustomMaterialConverter customMaterialConverter
+      CustomMaterialValidator validator,
+      CustomMaterialConverter converter
   ) {
 
-    this.customMaterialValidator = customMaterialValidator;
-    this.customMaterialConverter = customMaterialConverter;
+    this.validator = validator;
+    this.converter = converter;
   }
 
   public List<CustomToolMaterial> convert(DataCustomMaterialList data, Logger logger) {
@@ -29,14 +29,14 @@ public class CustomMaterialListConverter {
     for (ICustomToolMaterial dataCustomMaterial : list) {
 
       try {
-        this.customMaterialValidator.validate(dataCustomMaterial);
+        this.validator.validate(dataCustomMaterial);
 
       } catch (CustomMaterialValidationException e) {
         logger.error("", e);
         continue;
       }
 
-      result.add(this.customMaterialConverter.convert(dataCustomMaterial));
+      result.add(this.converter.convert(dataCustomMaterial));
     }
 
     return result;
