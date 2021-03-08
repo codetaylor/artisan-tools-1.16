@@ -5,6 +5,7 @@ pages:
   - ChangeLog: changelog.md
   - Generation: generation.md
   - Materials: materials.md
+  - Recipes: recipes.md
   - Tags: tags.md
   - Development:
     - Contributor's License Agreement: cla.md
