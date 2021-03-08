@@ -63,7 +63,8 @@ public enum EnumToolType {
   UNIVERSAL_KNIFE("knife"),
   UNIVERSAL_HATCHET("hatchet"),
   UNIVERSAL_FILE("file"),
-  UNIVERSAL_SOLDERER("solderer");
+  UNIVERSAL_SOLDERER("solderer"),
+  UNIVERSAL_PAINTBRUSH("paintbrush");
 
   private final String name;
 

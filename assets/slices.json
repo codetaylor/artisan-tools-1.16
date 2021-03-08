@@ -2,7 +2,7 @@
   "slices": [
     {
       "sourceImage": "tools.png",
-      "targetPath": "../src/main/resources/assets/artisantools/textures/items",
+      "targetPath": "../src/main/resources/assets/artisantools/textures/item",
       
       "targetSlices": [
 
@@ -70,6 +70,10 @@
         { "target": "artisans_razor_base.png", "position": [0, 15] },
         { "target": "artisans_razor_color.png", "position": [1, 15] },
         { "target": "artisans_razor_highlight.png", "position": [2, 15] },
+
+        { "target": "artisans_paintbrush_base.png", "position": [0, 16] },
+        { "target": "artisans_paintbrush_color.png", "position": [1, 16] },
+        { "target": "artisans_paintbrush_highlight.png", "position": [2, 16] },
 
         { "target": "artisans_pliers_base.png", "position": [4, 0] },
         { "target": "artisans_pliers_color.png", "position": [5, 0] },

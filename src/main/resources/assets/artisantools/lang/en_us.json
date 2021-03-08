@@ -33,6 +33,7 @@
   "item.artisantools.pencil.name": "Artisan's %s Pencil",
   "item.artisantools.tsquare.name": "Artisan's %s T-Square",
   "item.artisantools.solderer.name": "Artisan's %s Solderer",
+  "item.artisantools.paintbrush.name": "Artisan's %s Paintbrush",
   "tooltip.artisantools.durability": "Durability: %d / %d",
   "material.artisantools.wood": "Wooden",
   "material.artisantools.stone": "Stone",

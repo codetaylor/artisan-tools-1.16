@@ -494,6 +494,21 @@ public class RecipeTemplateFactory {
         )
     );
 
+    map.put(
+        EnumToolType.UNIVERSAL_PAINTBRUSH.getName(),
+        new RecipeTemplate(
+            new String[]{
+                "  w",
+                ".. ",
+                "/  "
+            },
+            new String[]{
+                "/", "item#minecraft:stick",
+                "w", "item#minecraft:wheat"
+            }
+        )
+    );
+
     return map;
   }
 }
