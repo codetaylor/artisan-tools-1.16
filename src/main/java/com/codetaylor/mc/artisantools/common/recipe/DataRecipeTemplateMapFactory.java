@@ -498,7 +498,7 @@ public class DataRecipeTemplateMapFactory {
         EnumToolType.UNIVERSAL_PAINTBRUSH.getName(),
         new DataRecipeTemplate(
             new String[]{
-                "  w",
+                " ww",
                 ".. ",
                 "/  "
             },
