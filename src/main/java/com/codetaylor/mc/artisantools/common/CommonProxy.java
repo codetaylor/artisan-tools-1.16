@@ -76,13 +76,14 @@ public class CommonProxy
         .collect(Collectors.toList());
 
     eventBus.register(new ConstructModEventHandler(
-        new MaterialFileGenerator(
+        new FileGenerator<>(
             gson,
             new ConfigFilePathSupplier(
                 configPath,
                 ArtisanToolsMod.TOOL_MATERIALS_GENERATED_JSON
             ),
             customMaterialPathSupplier,
+            () -> new DataCustomMaterialListFactory().create(),
             ArtisanToolsMod.LOGGER
         ),
         new MaterialFileReader(

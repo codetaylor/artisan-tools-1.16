@@ -8,24 +8,28 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Supplier;
 
-public class MaterialFileGenerator {
+public class FileGenerator<T> {
 
   private final Gson gson;
   private final ConfigFilePathSupplier generatedPathSupplier;
   private final ConfigFilePathSupplier customPathSupplier;
+  private final Supplier<T> generatedDataSupplier;
   private final Logger logger;
 
-  public MaterialFileGenerator(
+  public FileGenerator(
       Gson gson,
       ConfigFilePathSupplier generatedPathSupplier,
       ConfigFilePathSupplier customPathSupplier,
+      Supplier<T> generatedDataSupplier,
       Logger logger
   ) {
 
     this.gson = gson;
     this.generatedPathSupplier = generatedPathSupplier;
     this.customPathSupplier = customPathSupplier;
+    this.generatedDataSupplier = generatedDataSupplier;
     this.logger = logger;
   }
 
@@ -50,7 +54,7 @@ public class MaterialFileGenerator {
 
     try {
       writer = Files.newBufferedWriter(generatedPath);
-      this.gson.toJson(new DataCustomMaterialListFactory().create(), writer);
+      this.gson.toJson(this.generatedDataSupplier.get(), writer);
       writer.close();
 
     } catch (IOException e) {

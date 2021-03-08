@@ -1,7 +1,8 @@
 package com.codetaylor.mc.artisantools.common.event;
 
 import com.codetaylor.mc.artisantools.common.material.CustomMaterialListPopulator;
-import com.codetaylor.mc.artisantools.common.material.MaterialFileGenerator;
+import com.codetaylor.mc.artisantools.common.material.DataCustomMaterialList;
+import com.codetaylor.mc.artisantools.common.material.FileGenerator;
 import com.codetaylor.mc.artisantools.common.material.MaterialFileReader;
 import com.codetaylor.mc.artisantools.common.pack.GeneratedPackRemover;
 import com.codetaylor.mc.artisantools.common.pack.PackGenerator;
@@ -10,7 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 
 public class ConstructModEventHandler {
 
-  private final MaterialFileGenerator materialFileGenerator;
+  private final FileGenerator<DataCustomMaterialList> materialFileGenerator;
   private final MaterialFileReader materialFileReader;
   private final CustomMaterialListPopulator customMaterialListPopulator;
   private final GeneratedPackRemover generatedPackRemover;
@@ -18,7 +19,7 @@ public class ConstructModEventHandler {
   private final PackGenerator dataPackGenerator;
 
   public ConstructModEventHandler(
-      MaterialFileGenerator materialFileGenerator,
+      FileGenerator<DataCustomMaterialList> materialFileGenerator,
       MaterialFileReader materialFileReader,
       CustomMaterialListPopulator customMaterialListPopulator,
       GeneratedPackRemover generatedPackRemover,
