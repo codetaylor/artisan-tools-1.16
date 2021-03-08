@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.function.Supplier;
 
-public class FileGenerator<T> {
+public class JsonConfigFileGenerator<T> {
 
   private final Gson gson;
   private final ConfigFilePathSupplier generatedPathSupplier;
@@ -18,7 +18,7 @@ public class FileGenerator<T> {
   private final Supplier<T> generatedDataSupplier;
   private final Logger logger;
 
-  public FileGenerator(
+  public JsonConfigFileGenerator(
       Gson gson,
       ConfigFilePathSupplier generatedPathSupplier,
       ConfigFilePathSupplier customPathSupplier,

@@ -1,6 +1,5 @@
 package com.codetaylor.mc.artisantools.common.material;
 
-import com.codetaylor.mc.artisantools.api.CustomToolMaterial;
 import com.codetaylor.mc.artisantools.common.util.FileHelper;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.Logger;
@@ -8,20 +7,22 @@ import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.List;
+import java.util.function.Consumer;
 
-public class MaterialFileReader {
+public class JsonConfigFileReader<T> {
 
   private final Gson gson;
   private final ConfigFilePathSupplier customPathSupplier;
-  private final List<CustomToolMaterial> materialList;
+  private final Class<T> resultClass;
+  private final Consumer<T> resultConsumer;
   private final Logger logger;
 
-  public MaterialFileReader(Gson gson, ConfigFilePathSupplier customPathSupplier, List<CustomToolMaterial> materialList, Logger logger) {
+  public JsonConfigFileReader(Gson gson, ConfigFilePathSupplier customPathSupplier, Class<T> resultClass, Consumer<T> resultConsumer, Logger logger) {
 
     this.gson = gson;
     this.customPathSupplier = customPathSupplier;
-    this.materialList = materialList;
+    this.resultClass = resultClass;
+    this.resultConsumer = resultConsumer;
     this.logger = logger;
   }
 
@@ -31,12 +32,8 @@ public class MaterialFileReader {
 
     try {
       reader = Files.newBufferedReader(this.customPathSupplier.get());
-      DataCustomMaterialList dataCustomMaterialList = gson.fromJson(reader, DataCustomMaterialList.class);
-      CustomMaterialListConverter customMaterialListConverter = new CustomMaterialListConverter(
-          new CustomMaterialValidator(),
-          new CustomMaterialConverter()
-      );
-      this.materialList.addAll(customMaterialListConverter.convert(dataCustomMaterialList, this.logger));
+      T result = this.gson.fromJson(reader, this.resultClass);
+      this.resultConsumer.accept(result);
 
     } catch (IOException e) {
       this.logger.error("", e);

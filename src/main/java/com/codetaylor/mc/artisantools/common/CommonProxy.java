@@ -9,12 +9,12 @@ import com.codetaylor.mc.artisantools.api.EnumToolType;
 import com.codetaylor.mc.artisantools.api.ItemCustomToolBase;
 import com.codetaylor.mc.artisantools.common.event.ConstructModEventHandler;
 import com.codetaylor.mc.artisantools.common.event.ItemRegistrationEventHandler;
+import com.codetaylor.mc.artisantools.common.material.*;
+import com.codetaylor.mc.artisantools.common.pack.*;
 import com.codetaylor.mc.artisantools.common.util.GenerationInhibitor;
 import com.codetaylor.mc.artisantools.common.util.MultiPathCreator;
 import com.codetaylor.mc.artisantools.common.util.PathCreator;
 import com.codetaylor.mc.artisantools.common.util.PathRemover;
-import com.codetaylor.mc.artisantools.common.material.*;
-import com.codetaylor.mc.artisantools.common.pack.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -76,7 +76,7 @@ public class CommonProxy
         .collect(Collectors.toList());
 
     eventBus.register(new ConstructModEventHandler(
-        new FileGenerator<>(
+        new JsonConfigFileGenerator<>(
             gson,
             new ConfigFilePathSupplier(
                 configPath,
@@ -86,10 +86,15 @@ public class CommonProxy
             () -> new DataCustomMaterialListFactory().create(),
             ArtisanToolsMod.LOGGER
         ),
-        new MaterialFileReader(
+        new JsonConfigFileReader<>(
             gson,
             customMaterialPathSupplier,
-            materialList,
+            DataCustomMaterialList.class,
+            dataCustomMaterialList -> materialList.addAll(
+                new CustomMaterialListConverter(
+                    new CustomMaterialValidator(),
+                    new CustomMaterialConverter()
+                ).convert(dataCustomMaterialList, ArtisanToolsMod.LOGGER)),
             ArtisanToolsMod.LOGGER
         ),
         new CustomMaterialListPopulator(
